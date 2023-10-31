@@ -7,8 +7,10 @@ public class HealthManager : MonoBehaviour, IDamagable
     [SerializeField] private float maxHelath;
 
     public event System.Action OnDie;
+    public event System.Action OnDamageTaken;
 
     [field: SerializeField] public float Health { get; private set; }
+    public float MaxHealth => maxHelath;
 
     private void Start()
     {
@@ -19,6 +21,7 @@ public class HealthManager : MonoBehaviour, IDamagable
     {
         Debug.Log(transform.name + " Is Taking Damage");
         Health -= damage;
+        OnDamageTaken?.Invoke();
 
         if (Health <= 0)
             Die();
@@ -28,7 +31,7 @@ public class HealthManager : MonoBehaviour, IDamagable
     private void Die()
     {
         Debug.Log(transform.name + " is dead");
-        Destroy(gameObject);
         OnDie?.Invoke();
+        Destroy(gameObject);
     }
 }

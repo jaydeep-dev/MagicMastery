@@ -13,6 +13,10 @@ public class EnemyController : MonoBehaviour
     private PlayerMovement player;
     private HealthManager healthManager;
 
+    private bool canDamage = false;
+    private float currentTime = 0f;
+    private const float damageInterval = 1f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,7 +35,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnDie()
     {
-        var exp = Instantiate(expDropPrefab, transform.position, transform.rotation);
+        Instantiate(expDropPrefab, transform.position, transform.rotation);
     }
 
     // Start is called before the first frame update
@@ -48,21 +52,31 @@ public class EnemyController : MonoBehaviour
 
     private void MoveTowardsPlayer()
     {
-        if (player == null) return;
+        if (player == null) 
+            return;
 
         var playerPos = player.transform.position;
 
         // To prevent pushing player by enemies (2+ rigidbodies colliding eachother and generating force)
-        if(Vector2.Distance(playerPos, rb.position) <= 1f ) { return; }
+        if(Vector2.Distance(playerPos, rb.position) <= 1f )
+            return;
 
         rb.position = Vector2.MoveTowards(rb.position, playerPos, moveSpeed * Time.fixedDeltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
-        if(other.transform.TryGetComponent(out IDamagable damagable))
+        currentTime += Time.deltaTime;
+        if (currentTime >= damageInterval && !canDamage)
+        {
+            canDamage = true;
+            currentTime = 0f;
+        }
+
+        if (other.transform.TryGetComponent(out IDamagable damagable) && canDamage)
         {
             damagable.TakeDamage(damage);
+            canDamage = false;
         }
     }
 }

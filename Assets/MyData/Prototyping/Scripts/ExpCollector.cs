@@ -2,28 +2,50 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ExpCollector : MonoBehaviour
 {
     [SerializeField] private int maxExp;
+    [SerializeField] private Image expBar;
 
     private int currentExp = 0;
+    private int targetExp = 0;
+    private LTDescr expBarTween;
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out PickupItem item) && item.pickupType == PickupItem.Type.Exp)
         {
-            LeanTween.value(currentExp, item.pickupQuantity, .5f).setOnComplete(HandleExpBar(item));
+            targetExp += item.pickupQuantity;
+            LeanTween.move(item.gameObject, transform, .25f)
+                     .setOnComplete(() => TweenExpBar(targetExp))
+                     .setDestroyOnComplete(true);
         }
     }
 
-    private Action HandleExpBar(PickupItem item)
+    private void TweenExpBar(float targetExp)
     {
-        if(currentExp + item.pickupQuantity > maxExp)
+        if (expBarTween != null)
+            LeanTween.cancel(expBarTween.id);
+
+        expBarTween = LeanTween.value(currentExp, targetExp, 1f)
+        .setOnComplete(() => HandleExpBar(currentExp))
+        .setOnUpdate((float val) => HandleExpBar(val));
+    }
+
+    private void HandleExpBar(float val)
+    {
+        if (val >= maxExp)
         {
-            maxExp *= 2; // Makling twice as long
             currentExp = 0;
+            targetExp = ((int)expBarTween.to.x) - maxExp;
+            Debug.Log(currentExp + " -> " + (expBarTween.to.x - maxExp));
+            TweenExpBar(targetExp);
+            maxExp *= 2; // Makling twice as long
+            return;
         }
-        return () => currentExp += item.pickupQuantity;
+        currentExp = (int)val;
+        expBar.fillAmount = val / maxExp;
     }
 }

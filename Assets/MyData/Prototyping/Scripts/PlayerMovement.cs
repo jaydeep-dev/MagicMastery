@@ -8,11 +8,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 1f;
 
     private Rigidbody2D rb;
+    private HealthManager healthManager;
     private Vector2 moveVector = Vector2.zero;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        healthManager = GetComponent<HealthManager>();
     }
 
     private void FixedUpdate()
