@@ -562,8 +562,8 @@ MonoBehaviour:
   maxDistanceBetweenPoints: 0.1
   maxOffset: {x: 0.1, y: 0.2}
   effectVisibilityTime: 0.1
-  baseDamage: 10
-  increasedDamage: 15
+  baseDamage: 40
+  increasedDamage: 70
   lighteningAudio: {fileID: 4006365156717934595}
 --- !u!1 &8996458874137736914
 GameObject:

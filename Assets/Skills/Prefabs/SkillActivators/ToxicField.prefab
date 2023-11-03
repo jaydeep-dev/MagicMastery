@@ -158,6 +158,6 @@ MonoBehaviour:
   cooldownTime: 0.1
   vfx: {fileID: 6018010050484268606}
   baseRadius: 1
-  baseDamage: 10
+  baseDamage: 5
   increasedRadius: 2
-  increasedDamage: 15
+  increasedDamage: 10

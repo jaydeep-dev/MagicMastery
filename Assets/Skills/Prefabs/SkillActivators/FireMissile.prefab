@@ -180,7 +180,7 @@ MonoBehaviour:
   cooldownTime: 2
   vfx: {fileID: 0}
   projectilePrefab: {fileID: 4237333283434224734, guid: 9c621b3dcce89b34b825fee333c34f93, type: 3}
-  baseDamage: 10
-  increasedDamage: 15
-  enemyDetectionRange: 5
+  baseDamage: 50
+  increasedDamage: 100
+  enemyDetectRange: 8
   projectileLaunchAudio: {fileID: 6600883607383260052}
