@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class EnemyController : MonoBehaviour, IEnemy
 {
@@ -17,10 +19,17 @@ public class EnemyController : MonoBehaviour, IEnemy
     private float currentTime = 0f;
     private const float damageInterval = 1f;
 
+    private int xMoveHash = Animator.StringToHash("xMove");
+    private int yMoveHash = Animator.StringToHash("yMove");
+    private int isWalkingHash = Animator.StringToHash("IsWalking");
+
+    private Animator animator;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         healthManager = GetComponent<HealthManager>();
+        animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -64,6 +73,12 @@ public class EnemyController : MonoBehaviour, IEnemy
             return;
 
         rb.position = Vector2.MoveTowards(rb.position, playerPos, moveSpeed * Time.fixedDeltaTime);
+
+        var moveVector = (playerPos - (Vector3)rb.position).normalized;
+
+        animator.SetBool(isWalkingHash, moveVector != Vector3.zero);
+        animator.SetFloat(xMoveHash, moveVector.x);
+        animator.SetFloat(yMoveHash, moveVector.y);
     }
 
     private void OnCollisionStay2D(Collision2D other)
