@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class SkillsHandler : MonoBehaviour
 {
-    Dictionary<SkillNameTag, SkillActivator> activeSkills = new();
     List<SkillNameTag> currentSkills = new();
+
+    public Dictionary<SkillNameTag, SkillActivator> AllSkills { get; private set; } = new();
+
     private void Awake()
     {
         SkillActivator[] skillActivators = GetComponentsInChildren<SkillActivator>();
         foreach(var skillActivator in skillActivators)
         {
-            activeSkills.Add(skillActivator.SkillNameTag, skillActivator);
+            AllSkills.Add(skillActivator.SkillNameTag, skillActivator);
+            Debug.Log(skillActivator.name);
         }
     }
 
     public void ActivateSkill(SkillNameTag skillNameTag)
     {
-        if(!activeSkills.TryGetValue(skillNameTag, out SkillActivator skillActivator))
+        if(!AllSkills.TryGetValue(skillNameTag, out SkillActivator skillActivator))
         {
             return;
         }
@@ -28,7 +31,7 @@ public class SkillsHandler : MonoBehaviour
 
     public void LevelUpSkill(SkillNameTag skillNameTag)
     {
-        if (!activeSkills.TryGetValue(skillNameTag, out SkillActivator skillActivator))
+        if (!AllSkills.TryGetValue(skillNameTag, out SkillActivator skillActivator))
         {
             return;
         }
@@ -41,7 +44,7 @@ public class SkillsHandler : MonoBehaviour
         List<SkillLevelInfo> currentSkillsInfo = new();
         foreach(var skillNameTag in currentSkills)
         {
-            var skill = activeSkills[skillNameTag];
+            var skill = AllSkills[skillNameTag];
             currentSkillsInfo.Add(new SkillLevelInfo(skillNameTag, skill.CurrentLevel, skill.MaxLevel, false));
         }
 

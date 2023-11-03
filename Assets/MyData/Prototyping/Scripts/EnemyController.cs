@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IEnemy
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float damage;
@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour
     private void OnDie()
     {
         Instantiate(expDropPrefab, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 
     // Start is called before the first frame update
@@ -73,10 +74,22 @@ public class EnemyController : MonoBehaviour
             currentTime = 0f;
         }
 
-        if (other.transform.TryGetComponent(out IDamagable damagable) && canDamage)
+        bool isPlayer = other.transform.TryGetComponent(out PlayerMovement player);
+        if (isPlayer && canDamage)
         {
+            var damagable = player.GetComponent<IDamagable>();
             damagable.TakeDamage(damage);
             canDamage = false;
         }
+    }
+
+    public void Damage(float damage)
+    {
+        healthManager.TakeDamage(damage);
+    }
+
+    public void ChangeSpeed(float speedMultiplier)
+    {
+        moveSpeed *= speedMultiplier;
     }
 }

@@ -54,7 +54,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 422466004074005974, guid: 795e2499431e3184d8c3e96197e23843, type: 3}
   baseDamage: 10
   increasedDamage: 15
-  enemyDetectionRange: 5
+  enemyDetectRange: 5
   projectileLaunchAudio: {fileID: 2069375730069854118}
 --- !u!1 &5132333724696197923
 GameObject:

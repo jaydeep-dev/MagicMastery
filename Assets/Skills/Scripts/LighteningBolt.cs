@@ -37,7 +37,7 @@ public class LighteningBolt : SkillActivator
                 var enemiesFound = Physics2D.OverlapCircleAll(detectionCentre, enemyDetectRange, enemyLayer);
                 if (enemiesFound.Length == 0)
                 {
-                    break;
+                    return;
                 }
                 var enemy = enemiesFound[Random.Range(0, enemiesFound.Length)];
                 path.Add(enemy.transform.position);
@@ -112,5 +112,11 @@ public class LighteningBolt : SkillActivator
         }
 
         SetLighteningVisibility(true, boltNumber);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, enemyDetectRange);
     }
 }

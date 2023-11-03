@@ -7,7 +7,7 @@ public class FireMissile : SkillActivator
     [SerializeField] SimpleProjectile projectilePrefab;
     [SerializeField] float baseDamage;
     [SerializeField] float increasedDamage;
-    [SerializeField] float enemyDetectionRange;
+    [SerializeField] float enemyDetectRange;
     [SerializeField] AudioSource projectileLaunchAudio;
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class FireMissile : SkillActivator
         int numberOfProjectiles = CurrentLevel == 1 ? 1 : 2;
         float damage = CurrentLevel == 3 ? increasedDamage : baseDamage;
 
-        var enemies = Physics2D.OverlapCircleAll(transform.position, enemyDetectionRange, enemyLayer);
+        var enemies = Physics2D.OverlapCircleAll(transform.position, enemyDetectRange, enemyLayer);
         if(enemies.Length == 0)
         {
             return;
@@ -34,5 +34,11 @@ public class FireMissile : SkillActivator
             projectile.Launch(transform.position, (target.transform.position - transform.position).normalized);
             projectileLaunchAudio.Play();
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, enemyDetectRange);
     }
 }
