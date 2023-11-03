@@ -709,6 +709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesList:
   - {fileID: 962240160145231293, guid: 88ed2cadd63f4e44c9a91e7a225c5fd1, type: 3}
+  - {fileID: 2949154773708594106, guid: 140b7a6dca5fec741a0a364d3f9f0f17, type: 3}
   - {fileID: 3114050104731963094, guid: 0a45b05e564d53c4a9d9f263a8383b31, type: 3}
   - {fileID: 9072446946620740763, guid: bce099f2da89f204eb8d85f60df5a25a, type: 3}
   spawnInterval: 10
@@ -2180,8 +2181,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 12.5}
-  m_SizeDelta: {x: -119.999985, y: 25}
+  m_AnchoredPosition: {x: 0.035705566, y: 3.1212997}
+  m_SizeDelta: {x: -62.9464, y: 6.242}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &650182066
 MonoBehaviour:
@@ -3712,7 +3713,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 25
+  m_PixelsPerUnitMultiplier: 18
 --- !u!222 &1039362211
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4884,7 +4885,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -5382,8 +5383,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.23989, y: 0.06992}
-  m_SizeDelta: {x: -0.72019, y: -0.60698}
+  m_AnchoredPosition: {x: 0.3341, y: 0.06992}
+  m_SizeDelta: {x: -1.0014, y: -0.607}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1653282001
 MonoBehaviour:
@@ -5907,8 +5908,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: -200, y: 100}
+  m_AnchoredPosition: {x: 0, y: -25}
+  m_SizeDelta: {x: -200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1745245694
 MonoBehaviour:
@@ -5939,7 +5940,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.175
+  m_PixelsPerUnitMultiplier: 0.35
 --- !u!222 &1745245695
 CanvasRenderer:
   m_ObjectHideFlags: 0

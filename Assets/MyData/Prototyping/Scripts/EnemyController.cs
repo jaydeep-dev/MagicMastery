@@ -21,7 +21,6 @@ public class EnemyController : MonoBehaviour, IEnemy
 
     private int xMoveHash = Animator.StringToHash("xMove");
     private int yMoveHash = Animator.StringToHash("yMove");
-    private int isWalkingHash = Animator.StringToHash("IsWalking");
 
     private Animator animator;
 
@@ -76,26 +75,28 @@ public class EnemyController : MonoBehaviour, IEnemy
 
         var moveVector = (playerPos - (Vector3)rb.position).normalized;
 
-        animator.SetBool(isWalkingHash, moveVector != Vector3.zero);
         animator.SetFloat(xMoveHash, moveVector.x);
         animator.SetFloat(yMoveHash, moveVector.y);
     }
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        currentTime += Time.deltaTime;
+        bool isPlayer = other.transform.TryGetComponent(out PlayerMovement player);
+
+        if (isPlayer)
+            currentTime += Time.deltaTime;
+
         if (currentTime >= damageInterval && !canDamage)
         {
             canDamage = true;
-            currentTime = 0f;
         }
 
-        bool isPlayer = other.transform.TryGetComponent(out PlayerMovement player);
         if (isPlayer && canDamage)
         {
             var damagable = player.GetComponent<IDamagable>();
             damagable.TakeDamage(damage);
             canDamage = false;
+            currentTime = 0f;
         }
     }
 

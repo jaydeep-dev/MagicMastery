@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  damage: 5
+  damage: 1
   expDropPrefab: {fileID: 6369247221953017021, guid: 97ff7c3a1bd9b174899c826e258d8dc0, type: 3}
 --- !u!114 &3209649871690773324
 MonoBehaviour:
