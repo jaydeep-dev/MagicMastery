@@ -20,7 +20,7 @@ public class ToxicField : SkillActivator
         base.LevelUp();
         if(CurrentLevel == 3)
         {
-            vfx.localScale = increasedRadius * 2 * Vector3.one;
+            vfx.localScale =  increasedRadius * 2 * Vector3.one;
         }
     }
 
@@ -37,5 +37,11 @@ public class ToxicField : SkillActivator
         {
             enemy.GetComponent<IEnemy>().Damage(damage);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, CurrentLevel == 3 ? increasedRadius : baseRadius);
     }
 }

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IEnemy
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float damage;
@@ -17,10 +19,16 @@ public class EnemyController : MonoBehaviour
     private float currentTime = 0f;
     private const float damageInterval = 1f;
 
+    private int xMoveHash = Animator.StringToHash("xMove");
+    private int yMoveHash = Animator.StringToHash("yMove");
+
+    private Animator animator;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         healthManager = GetComponent<HealthManager>();
+        animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -35,7 +43,9 @@ public class EnemyController : MonoBehaviour
 
     private void OnDie()
     {
-        Instantiate(expDropPrefab, transform.position, transform.rotation);
+        var exp = Instantiate(expDropPrefab, transform.position, transform.rotation);
+        LeanTween.rotateZ(exp, (Random.Range(0f, 1f) >= .5f ? -360 : 360) * 2, 1).setLoopClamp();
+        Destroy(gameObject);
     }
 
     // Start is called before the first frame update
@@ -62,21 +72,41 @@ public class EnemyController : MonoBehaviour
             return;
 
         rb.position = Vector2.MoveTowards(rb.position, playerPos, moveSpeed * Time.fixedDeltaTime);
+
+        var moveVector = (playerPos - (Vector3)rb.position).normalized;
+
+        animator.SetFloat(xMoveHash, moveVector.x);
+        animator.SetFloat(yMoveHash, moveVector.y);
     }
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        currentTime += Time.deltaTime;
+        bool isPlayer = other.transform.TryGetComponent(out PlayerMovement player);
+
+        if (isPlayer)
+            currentTime += Time.deltaTime;
+
         if (currentTime >= damageInterval && !canDamage)
         {
             canDamage = true;
-            currentTime = 0f;
         }
 
-        if (other.transform.TryGetComponent(out IDamagable damagable) && canDamage)
+        if (isPlayer && canDamage)
         {
+            var damagable = player.GetComponent<IDamagable>();
             damagable.TakeDamage(damage);
             canDamage = false;
+            currentTime = 0f;
         }
+    }
+
+    public void Damage(float damage)
+    {
+        healthManager.TakeDamage(damage);
+    }
+
+    public void ChangeSpeed(float speedMultiplier)
+    {
+        moveSpeed *= speedMultiplier;
     }
 }

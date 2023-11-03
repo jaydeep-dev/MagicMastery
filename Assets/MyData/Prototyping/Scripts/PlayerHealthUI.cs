@@ -17,11 +17,23 @@ public class PlayerHealthUI : MonoBehaviour
     private void OnEnable()
     {
         healthManager.OnDamageTaken += OnDamageTaken;
+        healthManager.OnDie += OnDie;
+    }
+
+    private void OnDie()
+    {
+        Destroy(gameObject);
+        LeanTween.delayedCall(5f, () =>
+        {
+            var levelIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+            UnityEngine.SceneManagement.SceneManager.LoadScene(levelIndex);
+        });
     }
 
     private void OnDisable()
     {
         healthManager.OnDamageTaken -= OnDamageTaken;
+        healthManager.OnDie -= OnDie;
     }
 
     private void OnDamageTaken()

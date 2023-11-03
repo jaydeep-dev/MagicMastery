@@ -13,15 +13,22 @@ public class ExpCollector : MonoBehaviour
     private int targetExp = 0;
     private LTDescr expBarTween;
 
+    public static event Action OnLevelUp;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out PickupItem item) && item.pickupType == PickupItem.Type.Exp)
         {
             targetExp += item.pickupQuantity;
-            LeanTween.move(item.gameObject, transform, .25f)
+            LeanTween.move(item.gameObject, transform, .1f)
                      .setOnComplete(() => TweenExpBar(targetExp))
                      .setDestroyOnComplete(true);
         }
+    }
+
+    private void OnDestroy()
+    {
+        OnLevelUp = null;
     }
 
     private void TweenExpBar(float targetExp)
@@ -29,7 +36,7 @@ public class ExpCollector : MonoBehaviour
         if (expBarTween != null)
             LeanTween.cancel(expBarTween.id);
 
-        expBarTween = LeanTween.value(currentExp, targetExp, 1f)
+        expBarTween = LeanTween.value(currentExp, targetExp, .75f)
         .setOnComplete(() => HandleExpBar(currentExp))
         .setOnUpdate((float val) => HandleExpBar(val));
     }
@@ -38,14 +45,20 @@ public class ExpCollector : MonoBehaviour
     {
         if (val >= maxExp)
         {
-            currentExp = 0;
-            targetExp = ((int)expBarTween.to.x) - maxExp;
-            Debug.Log(currentExp + " -> " + (expBarTween.to.x - maxExp));
-            TweenExpBar(targetExp);
-            maxExp *= 2; // Makling twice as long
+            LevelUp();
             return;
         }
         currentExp = (int)val;
         expBar.fillAmount = val / maxExp;
+    }
+
+    private void LevelUp()
+    {
+        currentExp = 0;
+        targetExp = ((int)expBarTween.to.x) - maxExp;
+        Debug.Log(currentExp + " -> " + (expBarTween.to.x - maxExp));
+        TweenExpBar(targetExp);
+        maxExp *= 2; // Makling twice as long
+        OnLevelUp?.Invoke();
     }
 }

@@ -32,6 +32,5 @@ public class HealthManager : MonoBehaviour, IDamagable
     {
         Debug.Log(transform.name + " is dead");
         OnDie?.Invoke();
-        Destroy(gameObject);
     }
 }
