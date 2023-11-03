@@ -362,7 +362,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameUI_12
+      name: ProgressBar
       rect:
         serializedVersion: 2
         x: 6
@@ -371,7 +371,7 @@ TextureImporter:
         height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 22, y: 0, z: 22, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -522,7 +522,6 @@ TextureImporter:
       ExpBar: -1496466577
       GameUI_0: -687128563
       GameUI_1: -576983941
-      GameUI_12: -425235917
       GameUI_13: 39262906
       GameUI_14: 183011819
       GameUI_15: -1894623125
@@ -538,6 +537,7 @@ TextureImporter:
       GameUI_8: -1139924371
       GameUI_9: 2097879782
       HealthBar: -590071447
+      ProgressBar: -425235917
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

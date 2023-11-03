@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LighteningBolt : SkillActivator
@@ -28,7 +26,7 @@ public class LighteningBolt : SkillActivator
     {
         float damageToDeal = CurrentLevel == 3 ? increasedDamage : baseDamage;
         int numberOfBolts = CurrentLevel == 1 ? 1 : 2;
-        for(int i=0;i<numberOfBolts;i++)
+        for (int i = 0; i < numberOfBolts; i++)
         {
             List<Vector3> path = new() { transform.position };
             Vector3 detectionCentre = transform.position;
@@ -47,7 +45,7 @@ public class LighteningBolt : SkillActivator
 
             DrawLightening(path, i + 1);
             lighteningAudio.Play();
-            if(i == 0)
+            if (i == 0)
             {
                 Invoke(nameof(DisableLighteningBolt1), effectVisibilityTime);
             }
@@ -55,8 +53,8 @@ public class LighteningBolt : SkillActivator
             {
                 Invoke(nameof(DisableLighteningBolt2), effectVisibilityTime);
             }
-            
-        }        
+
+        }
     }
 
     void DisableLighteningBolt1()
@@ -79,11 +77,11 @@ public class LighteningBolt : SkillActivator
     void DrawLightening(List<Vector3> path, int boltNumber)
     {
         var lineRenderers = boltNumber == 1 ? lineRenderersBolt1 : lineRenderersBolt2;
-        foreach(var lineRenderer in lineRenderers)
+        foreach (var lineRenderer in lineRenderers)
         {
             List<Vector3> points = new();
             points.Add(path[0]);
-            for(int i=1;i<path.Count;i++)
+            for (int i = 1; i < path.Count; i++)
             {
                 Vector3 diff = path[i] - path[i - 1];
                 Vector3 direction = diff.normalized;
@@ -105,7 +103,7 @@ public class LighteningBolt : SkillActivator
                     var newPoint = path[i - 1] + Quaternion.Euler(0, 0, angle) * new Vector3(distanceTravelled + offsetX, offsetY);
                     points.Add(newPoint);
                 }
-            }            
+            }
 
             lineRenderer.positionCount = points.Count;
             lineRenderer.SetPositions(points.ToArray());
