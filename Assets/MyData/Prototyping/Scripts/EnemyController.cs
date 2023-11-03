@@ -35,7 +35,8 @@ public class EnemyController : MonoBehaviour, IEnemy
 
     private void OnDie()
     {
-        Instantiate(expDropPrefab, transform.position, transform.rotation);
+        var exp = Instantiate(expDropPrefab, transform.position, transform.rotation);
+        LeanTween.rotateZ(exp, (Random.Range(0f, 1f) >= .5f ? -360 : 360) * 2, 1).setLoopClamp();
         Destroy(gameObject);
     }
 

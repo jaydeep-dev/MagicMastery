@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Temp Code")]
     [SerializeField] private Camera mainCam;
     [SerializeField] private int spawnCount;
+    [SerializeField] private bool useSpawner;
     #endregion
 
     // Start is called before the first frame update
@@ -25,7 +26,9 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //currentTime += Time.deltaTime;
+        if (useSpawner)
+            currentTime += Time.deltaTime;
+
         if (currentTime > spawnInterval)
         {
             currentTime = 0f;

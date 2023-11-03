@@ -25,6 +25,12 @@ public class SkillsHandler : MonoBehaviour
             return;
         }
 
+        if (currentSkills.Contains(skillNameTag))
+        {
+            Debug.LogError("Already activated this skill: " + skillNameTag);
+            return;
+        }
+
         skillActivator.Activate();
         currentSkills.Add(skillNameTag);
     }
@@ -33,6 +39,12 @@ public class SkillsHandler : MonoBehaviour
     {
         if (!AllSkills.TryGetValue(skillNameTag, out SkillActivator skillActivator))
         {
+            return;
+        }
+
+        if (!currentSkills.Contains(skillNameTag))
+        {
+            Debug.LogError("Skill hasn't activated yet: " + skillNameTag);
             return;
         }
 
@@ -66,4 +78,6 @@ public struct SkillLevelInfo
         MaxLevel = maxLevel;
         IsPassive = isPassive;
     }
+
+    public override string ToString() => JsonUtility.ToJson(this);
 }

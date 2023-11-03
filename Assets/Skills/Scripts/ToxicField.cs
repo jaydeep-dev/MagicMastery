@@ -20,7 +20,7 @@ public class ToxicField : SkillActivator
         base.LevelUp();
         if(CurrentLevel == 3)
         {
-            vfx.localScale = increasedRadius * 2 * Vector3.one;
+            vfx.localScale =  increasedRadius * 2 * Vector3.one;
         }
     }
 

@@ -19,7 +19,19 @@ public class SkillUIController : MonoBehaviour
     private void OnEnable()
     {
         ExpCollector.OnLevelUp += OnLevelUp;
-        OnSkillSelected += skillsHandler.ActivateSkill;
+        OnSkillSelected += ManageActiveSkills;
+    }
+
+    private void ManageActiveSkills(SkillNameTag selectedSkill)
+    {
+        var currentActiveSkills = skillsHandler.GetCurrentSkills();
+        var isOwnedSkill = currentActiveSkills.Exists(x => x.SkillNameTag == selectedSkill);
+        Debug.Log(isOwnedSkill);
+
+        if(isOwnedSkill)
+            skillsHandler.LevelUpSkill(selectedSkill);
+        else
+            skillsHandler.ActivateSkill(selectedSkill);
     }
 
     private void OnLevelUp()
@@ -31,8 +43,6 @@ public class SkillUIController : MonoBehaviour
             int randomIndex = Random.Range(0, skillsHandler.AllSkills.Keys.Count);
             var skills = new List<SkillNameTag>(skillsHandler.AllSkills.Keys);
             var selectedSkill = allSkillsUIList.Find(x => x.skillName == skills[randomIndex]);
-            Debug.Log(skills[randomIndex]);
-            Debug.Log(selectedSkill);
             slot.SetSkillData(selectedSkill);
         }
     }
@@ -40,7 +50,7 @@ public class SkillUIController : MonoBehaviour
     private void OnDisable()
     {
         ExpCollector.OnLevelUp -= OnLevelUp;
-        OnSkillSelected -= skillsHandler.ActivateSkill;
+        OnSkillSelected -= ManageActiveSkills;
     }
 
     public static void InvokeSelectedEvent(SkillNameTag tag)
