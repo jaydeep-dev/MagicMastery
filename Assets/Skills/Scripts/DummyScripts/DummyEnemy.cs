@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour, IEnemy
 {
     public void ChangeSpeed(float speedMultiplier)
     {
-        
+        Debug.Log("Speed Changed " + speedMultiplier);
     }
 
     public void Damage(float damage)

@@ -3,5 +3,8 @@
     FireMissile,
     LighteningBolt,
     ToxicField,
-    WindGust
+    WindGust,
+    IceBlast,
+    LavaField,
+    IceField
 }

@@ -2224,6 +2224,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8609513678726302002, guid: fb1c2c5671b4e6b4da374b5bf9cafc7c, type: 3}
+      propertyPath: iceShotPrefab
+      value: 
+      objectReference: {fileID: 1626209983628053493, guid: c7c6205740904a343825d00d7d767b2d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
