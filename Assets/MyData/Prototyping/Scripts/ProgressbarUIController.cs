@@ -13,7 +13,7 @@ public class ProgressbarUIController : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating(nameof(UpdateProgressBar), 1, 1);
+        InvokeRepeating(nameof(UpdateProgressBar), 0, 1);
     }
 
     private void UpdateProgressBar()

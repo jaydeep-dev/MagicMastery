@@ -10,6 +10,9 @@ public class EnemyController : MonoBehaviour, IEnemy
     [SerializeField] private float damage;
 
     [SerializeField] private GameObject expDropPrefab;
+    [SerializeField] private ParticleSystem deathParticlePrefab;
+
+    public static event System.Action OnAnyEnemyKilled;
 
     private Rigidbody2D rb;
     private PlayerMovement player;
@@ -22,6 +25,8 @@ public class EnemyController : MonoBehaviour, IEnemy
     private int xMoveHash = Animator.StringToHash("xMove");
     private int yMoveHash = Animator.StringToHash("yMove");
 
+    private int damageTweenId;
+
     private Animator animator;
 
     private void Awake()
@@ -33,19 +38,35 @@ public class EnemyController : MonoBehaviour, IEnemy
 
     private void OnEnable()
     {
+        healthManager.OnDamageTaken += OnDamageTaken;
         healthManager.OnDie += OnDie;
     }
 
-    private void OnDisable()
+    private void OnDamageTaken()
     {
-        healthManager.OnDie -= OnDie;
+        if(LeanTween.isTweening(damageTweenId))
+            return;
+
+        damageTweenId = LeanTween.color(gameObject, Color.red, .1f).setLoopPingPong(2).id;
     }
 
     private void OnDie()
     {
         var exp = Instantiate(expDropPrefab, transform.position, transform.rotation);
         LeanTween.rotateZ(exp, (Random.Range(0f, 1f) >= .5f ? -360 : 360) * 2, 1).setLoopClamp();
+
+        var deathParticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
+        LeanTween.delayedCall(deathParticle.gameObject, deathParticle.main.duration, () => Destroy(deathParticle.gameObject));
+
+        OnAnyEnemyKilled?.Invoke();
+
         Destroy(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        healthManager.OnDamageTaken -= OnDamageTaken;
+        healthManager.OnDie -= OnDie;
     }
 
     // Start is called before the first frame update

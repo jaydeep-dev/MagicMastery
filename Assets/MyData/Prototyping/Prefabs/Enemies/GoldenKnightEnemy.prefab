@@ -197,6 +197,7 @@ MonoBehaviour:
   moveSpeed: 3
   damage: 8
   expDropPrefab: {fileID: 6369247221953017021, guid: 8fa2ff269207d704f976489ad2e66a43, type: 3}
+  deathParticlePrefab: {fileID: 8943895053997994745, guid: 063a3fb26beb5c84ca60b124ce0077d8, type: 3}
 --- !u!114 &5591583408087663170
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,6 +17,8 @@ public class HealthManager : MonoBehaviour, IDamagable
         Health = maxHelath;
     }
 
+    public void SetMaxHealth(float healthMultiplier) => maxHelath *= healthMultiplier;
+
     public void TakeDamage(float damage)
     {
         Debug.Log(transform.name + " Is Taking Damage");
