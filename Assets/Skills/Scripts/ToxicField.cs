@@ -35,7 +35,8 @@ public class ToxicField : SkillActivator
         var enemies = Physics2D.OverlapCircleAll(transform.position, radius, enemyLayer);
         foreach(var enemy in enemies)
         {
-            enemy.GetComponent<IEnemy>().Damage(damage);
+            var enemyComponent = enemy.GetComponent<IEnemy>();
+            enemyComponent.Damage(skillsAugmentor.CalculateModifiedDamage(damage, enemyComponent.IsBoss));
         }
     }
 

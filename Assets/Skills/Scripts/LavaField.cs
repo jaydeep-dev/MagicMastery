@@ -19,6 +19,7 @@ public class LavaField : SkillActivator
         var instance = Instantiate(lavaFieldInstancePrefab, transform.position, Quaternion.identity);
         instance.SetDamage(CurrentLevel == 1 ? baseDamage : increasedDamage);
         instance.SetRadius(CurrentLevel == 3 ? increasedRadius : baseRadius);
+        instance.InjectSkillsAugmentor(skillsAugmentor);
         instance.gameObject.SetActive(true);
     }
 }

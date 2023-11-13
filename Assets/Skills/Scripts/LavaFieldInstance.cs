@@ -10,6 +10,7 @@ public class LavaFieldInstance : MonoBehaviour
     [SerializeField] float destroyTime;
     float damage;
     float timeLeft;
+    SkillsAugmentor skillsAugmentor;
     public void SetRadius(float radius)
     {
         transform.localScale = radius * 2 * Vector3.one;
@@ -17,6 +18,10 @@ public class LavaFieldInstance : MonoBehaviour
     public void SetDamage(float damage)
     {
         this.damage = damage;
+    }
+    public void InjectSkillsAugmentor(SkillsAugmentor skillsAugmentor)
+    {
+        this.skillsAugmentor = skillsAugmentor;
     }
 
     private void Start()
@@ -39,7 +44,8 @@ public class LavaFieldInstance : MonoBehaviour
             }, enemies);
             foreach(var enemy in enemies)
             {
-                enemy.GetComponent<IEnemy>().Damage(damage);
+                var enemyComponent = enemy.GetComponent<IEnemy>();
+                enemyComponent.Damage(skillsAugmentor.CalculateModifiedDamage(damage, enemyComponent.IsBoss));
             }
         }
     }

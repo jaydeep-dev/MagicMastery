@@ -14,6 +14,7 @@ public class IceBlast : SkillActivator
         {
             var iceShot = Instantiate(iceShotPrefab, transform);
             iceShot.transform.localPosition = Vector3.zero;
+            iceShot.InjectSkillsAugmentor(skillsAugmentor);
             iceShots.Add(iceShot);
         }
     }

@@ -40,7 +40,8 @@ public class LighteningBolt : SkillActivator
                 var enemy = enemiesFound[Random.Range(0, enemiesFound.Length)];
                 path.Add(enemy.transform.position);
                 detectionCentre = enemy.transform.position;
-                enemy.GetComponent<IEnemy>().Damage(baseDamage);
+                var enemyComponent = enemy.GetComponent<IEnemy>();
+                enemyComponent.Damage(skillsAugmentor.CalculateModifiedDamage(damageToDeal, enemyComponent.IsBoss));
             }
 
             DrawLightening(path, i + 1);

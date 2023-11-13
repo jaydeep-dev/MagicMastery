@@ -18,7 +18,13 @@ public class DummyPlayer : MonoBehaviour
         skillsHandler.ActivateSkill(SkillNameTag.WindGust);
         skillsHandler.ActivateSkill(SkillNameTag.IceBlast);
         skillsHandler.ActivateSkill(SkillNameTag.LavaField);*/
-        skillsHandler.ActivateSkill(SkillNameTag.IceField);
+        //skillsHandler.ActivateSkill(SkillNameTag.IceField);
+        skillsHandler.ActivateSkill(SkillNameTag.ToxicField);
+        skillsHandler.LevelUpSkill(SkillNameTag.ToxicField);
+        skillsHandler.LevelUpSkill(SkillNameTag.ToxicField);
+        skillsHandler.ActivateSkill(SkillNameTag.LavaField);
+        skillsHandler.LevelUpSkill(SkillNameTag.LavaField);
+        skillsHandler.LevelUpSkill(SkillNameTag.LavaField);        
         Invoke(nameof(MaxLevel), 10);
     }
 
@@ -36,7 +42,8 @@ public class DummyPlayer : MonoBehaviour
         skillsHandler.LevelUpSkill(SkillNameTag.IceBlast);
         skillsHandler.LevelUpSkill(SkillNameTag.LavaField);
         skillsHandler.LevelUpSkill(SkillNameTag.LavaField);*/
-        skillsHandler.LevelUpSkill(SkillNameTag.IceField);
-        skillsHandler.LevelUpSkill(SkillNameTag.IceField);
+        //skillsHandler.LevelUpSkill(SkillNameTag.IceField);
+        //skillsHandler.LevelUpSkill(SkillNameTag.IceField);
+        skillsHandler.ActivateSkill(SkillNameTag.Cooldown);
     }
 }

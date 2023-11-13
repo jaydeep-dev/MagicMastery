@@ -33,6 +33,7 @@ public class WindGust : SkillActivator
             var target = enemies[Random.Range(0, enemies.Length)];
             var projectile = Instantiate(projectilePrefab);
             projectile.SetDamage(damage);
+            projectile.InjectAugmentor(skillsAugmentor);
             projectile.Launch(transform.position, (target.transform.position - transform.position).normalized);
             projectileLaunchAudio.Play();
         }
