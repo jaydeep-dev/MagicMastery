@@ -42,7 +42,7 @@ public class IceField : SkillActivator
             var enemyComponent = enemy.GetComponent<IEnemy>();
             if(CurrentLevel != 1)
             {
-                enemyComponent.Damage(damage);
+                enemyComponent.Damage(skillsAugmentor.CalculateModifiedDamage(damage, enemyComponent.IsBoss));
             }            
 
             if(!slowedEnemies.Contains(enemy))

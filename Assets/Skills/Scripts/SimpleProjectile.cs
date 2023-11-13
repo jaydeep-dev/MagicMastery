@@ -14,9 +14,14 @@ public class SimpleProjectile : MonoBehaviour
     float damage;
     Vector2 startPoint;
     bool launched;
+    SkillsAugmentor skillsAugmentor;
     public void SetDamage(float damage)
     {
         this.damage = damage;
+    }
+    public void InjectAugmentor(SkillsAugmentor augmentor)
+    {
+        skillsAugmentor = augmentor;
     }
     public void Launch(Vector2 start, Vector2 direction)
     {
@@ -52,7 +57,7 @@ public class SimpleProjectile : MonoBehaviour
             return;
         }
 
-        enemy.Damage(damage);
+        enemy.Damage(skillsAugmentor.CalculateModifiedDamage(damage, enemy.IsBoss));
         enemyHit = true;
         Destroy(gameObject);
     }

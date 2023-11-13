@@ -8,6 +8,7 @@ public abstract class SkillActivator : MonoBehaviour
     [SerializeField] protected SkillNameTag skillNameTag;
     [SerializeField] protected float cooldownTime;
     [SerializeField] protected Transform vfx;
+    [SerializeField] protected SkillsAugmentor skillsAugmentor;
     public SkillNameTag SkillNameTag => skillNameTag;
     public bool IsActive { get; private set; }
     public int CurrentLevel { get; private set; }
@@ -46,7 +47,7 @@ public abstract class SkillActivator : MonoBehaviour
         if(cooldownTimeLeft <= 0)
         {
             UseSkill();
-            cooldownTimeLeft = cooldownTime;
+            cooldownTimeLeft = skillsAugmentor.CalculateModifiedCooldown(cooldownTime);
         }
 
     }

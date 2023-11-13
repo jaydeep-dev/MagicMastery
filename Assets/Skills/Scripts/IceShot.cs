@@ -10,10 +10,14 @@ public class IceShot : MonoBehaviour
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] float animationAttackTimeNormalized;
     [SerializeField] AudioSource iceShotSound;
-
+    SkillsAugmentor skillsAugmentor;
     public void UseIceShot(Vector2 direction, float damage)
     {
         StartCoroutine(IceShotRoutine(direction, damage));
+    }
+    public void InjectSkillsAugmentor(SkillsAugmentor augmentor)
+    {
+        skillsAugmentor = augmentor;
     }
 
     IEnumerator IceShotRoutine(Vector2 direction, float damage)
@@ -43,7 +47,8 @@ public class IceShot : MonoBehaviour
 
                 foreach(var result in results)
                 {
-                    result.GetComponent<IEnemy>().Damage(damage);
+                    var enemy = result.GetComponent<IEnemy>();
+                    enemy.Damage(skillsAugmentor.CalculateModifiedDamage(damage, enemy.IsBoss));
                 }
 
                 attacked = true;

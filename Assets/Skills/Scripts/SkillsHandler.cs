@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class SkillsHandler : MonoBehaviour
@@ -7,12 +8,24 @@ public class SkillsHandler : MonoBehaviour
     List<SkillNameTag> currentSkills = new();
 
     public Dictionary<SkillNameTag, SkillActivator> AllSkills { get; private set; } = new();
+    Dictionary<SkillNameTag, SkillActivator> breakthroughSkills = new();
+    public event Action<SkillNameTag> skillBreakthrough;
 
     private void Awake()
     {
         SkillActivator[] skillActivators = GetComponentsInChildren<SkillActivator>();
         foreach(var skillActivator in skillActivators)
         {
+            if(skillActivator.SkillNameTag == SkillNameTag.GreatFireBall ||
+                skillActivator.SkillNameTag == SkillNameTag.BurningPoison ||
+                skillActivator.SkillNameTag == SkillNameTag.IcicleBlast ||
+                skillActivator.SkillNameTag == SkillNameTag.LighteningArrow ||
+                skillActivator.SkillNameTag == SkillNameTag.HellSummon)
+            {
+                breakthroughSkills.Add(skillActivator.SkillNameTag, skillActivator);
+                continue;
+            }
+
             AllSkills.Add(skillActivator.SkillNameTag, skillActivator);
             Debug.Log(skillActivator.name);
         }
@@ -33,6 +46,7 @@ public class SkillsHandler : MonoBehaviour
 
         skillActivator.Activate();
         currentSkills.Add(skillNameTag);
+        CheckForBreakthroughSkills();
     }
 
     public void LevelUpSkill(SkillNameTag skillNameTag)
@@ -49,6 +63,7 @@ public class SkillsHandler : MonoBehaviour
         }
 
         skillActivator.LevelUp();
+        CheckForBreakthroughSkills();
     }
 
     public List<SkillLevelInfo> GetCurrentSkills()
@@ -61,6 +76,88 @@ public class SkillsHandler : MonoBehaviour
         }
 
         return currentSkillsInfo;
+    }
+
+    void CheckForBreakthroughSkills()
+    {
+        var currentSkillsInfos = GetCurrentSkills();
+        //GreatFireBall
+        if(CheckBreakthroughRecipe(currentSkillsInfos, SkillNameTag.FireMissile, SkillNameTag.WindGust, SkillNameTag.Defense, SkillNameTag.Heal))
+        {
+            PerformBreakthrough(SkillNameTag.FireMissile, SkillNameTag.WindGust, SkillNameTag.GreatFireBall);
+            return;
+        }
+        //BurningPoison
+        if (CheckBreakthroughRecipe(currentSkillsInfos, SkillNameTag.ToxicField, SkillNameTag.LavaField, SkillNameTag.Cooldown, SkillNameTag.EfficientXP))
+        {
+            PerformBreakthrough(SkillNameTag.ToxicField, SkillNameTag.LavaField, SkillNameTag.BurningPoison);
+            return;
+        }
+        //IcicleBlast
+        if (CheckBreakthroughRecipe(currentSkillsInfos, SkillNameTag.IceBlast, SkillNameTag.IceField, SkillNameTag.Speed, SkillNameTag.Health))
+        {
+            PerformBreakthrough(SkillNameTag.IceBlast, SkillNameTag.IceField, SkillNameTag.IcicleBlast);
+            return;
+        }
+        //LighteningArrow
+        if (CheckBreakthroughRecipe(currentSkillsInfos, SkillNameTag.DimensionalArrow, SkillNameTag.LighteningBolt, SkillNameTag.Attack))
+        {
+            PerformBreakthrough(SkillNameTag.DimensionalArrow, SkillNameTag.LighteningBolt, SkillNameTag.LighteningArrow);
+            return;
+        }
+        //HellSummon
+        if (CheckBreakthroughRecipe(currentSkillsInfos, SkillNameTag.FlameSummon, SkillNameTag.MeteorSummon, SkillNameTag.OneOnOne))
+        {
+            PerformBreakthrough(SkillNameTag.FlameSummon, SkillNameTag.MeteorSummon, SkillNameTag.HellSummon);
+            return;
+        }
+    }
+
+    void PerformBreakthrough(SkillNameTag activeSkill1, SkillNameTag activeSkill2, SkillNameTag breakthorughSkill)
+    {
+        Destroy(AllSkills[activeSkill1].gameObject);
+        Destroy(AllSkills[activeSkill2].gameObject);
+        AllSkills.Remove(activeSkill1);
+        AllSkills.Remove(activeSkill2);
+        currentSkills.Remove(activeSkill1);
+        currentSkills.Remove(activeSkill2);
+        AllSkills.Add(breakthorughSkill, breakthroughSkills[breakthorughSkill]);
+        ActivateSkill(breakthorughSkill);
+        skillBreakthrough?.Invoke(breakthorughSkill);
+    }
+
+    //can be optimized. too lazy.
+    bool CheckBreakthroughRecipe(List<SkillLevelInfo> currentSkills, SkillNameTag activeSkill1, SkillNameTag activeSkill2, SkillNameTag passiveSkillOption1, SkillNameTag? passiveSkillOption2 = null)
+    {
+        bool activeSkill1Max = false;
+        bool activeSkill2Max = false;
+        bool hasPassiveSkill = false;
+        foreach(var skillInfo in currentSkills)
+        {
+            if(skillInfo.SkillNameTag == activeSkill1 && skillInfo.CurrentLevel == skillInfo.MaxLevel)
+            {
+                activeSkill1Max = true;
+            }
+            if(skillInfo.SkillNameTag == activeSkill2 && skillInfo.CurrentLevel == skillInfo.MaxLevel)
+            {
+                activeSkill2Max = true;
+            }
+            if(skillInfo.SkillNameTag == passiveSkillOption1)
+            {
+                hasPassiveSkill = true;
+            }
+            if(passiveSkillOption2 != null && skillInfo.SkillNameTag == passiveSkillOption2)
+            {
+                hasPassiveSkill = true;
+            }            
+        }
+
+        if (activeSkill1Max && activeSkill2Max && hasPassiveSkill)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
 
