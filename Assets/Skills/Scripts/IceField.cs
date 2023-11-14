@@ -52,13 +52,15 @@ public class IceField : SkillActivator
             }
         }
 
+        slowedEnemies.RemoveAll(x => x == null);
+
         //set the speed back to normal for enemies outside radius
-        for(int i=slowedEnemies.Count - 1;i>=0;i--)
+        for(int i= 0; i < slowedEnemies.Count; i++)
         {
             if (!enemies.Contains(slowedEnemies[i]))
             {
-                slowedEnemies[i].GetComponent<IEnemy>().ChangeSpeed(1);
-                slowedEnemies.RemoveAt(i);
+                slowedEnemies[0].GetComponent<IEnemy>().ChangeSpeed(1);
+                slowedEnemies.RemoveAt(0);
             }
         }
     }
