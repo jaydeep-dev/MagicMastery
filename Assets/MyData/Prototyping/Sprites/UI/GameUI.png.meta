@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GameUI_0
+      name: Settings
       rect:
         serializedVersion: 2
         x: 0
@@ -131,7 +131,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameUI_1
+      name: Slot_Sword
       rect:
         serializedVersion: 2
         x: 21
@@ -152,7 +152,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameUI_2
+      name: Slot_Shield
       rect:
         serializedVersion: 2
         x: 5
@@ -173,7 +173,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameUI_3
+      name: Slot_Helmet
       rect:
         serializedVersion: 2
         x: 37
@@ -194,7 +194,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameUI_4
+      name: Slot_Armor
       rect:
         serializedVersion: 2
         x: 5
@@ -215,7 +215,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameUI_5
+      name: Slot_Belt
       rect:
         serializedVersion: 2
         x: 37
@@ -236,7 +236,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameUI_6
+      name: Slot_Gauntlet
       rect:
         serializedVersion: 2
         x: 5
@@ -257,7 +257,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameUI_7
+      name: Slot_Boots
       rect:
         serializedVersion: 2
         x: 37
@@ -278,7 +278,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameUI_8
+      name: Slot_Ring
       rect:
         serializedVersion: 2
         x: 5
@@ -299,7 +299,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameUI_9
+      name: Slot_Necklace
       rect:
         serializedVersion: 2
         x: 37
@@ -520,24 +520,24 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       ExpBar: -1496466577
-      GameUI_0: -687128563
-      GameUI_1: -576983941
       GameUI_13: 39262906
       GameUI_14: 183011819
       GameUI_15: -1894623125
       GameUI_16: 926689753
       GameUI_17: -439897886
       GameUI_18: -1451265282
-      GameUI_2: -1876485542
-      GameUI_3: 1259542233
-      GameUI_4: -1630790116
-      GameUI_5: 932810690
-      GameUI_6: -1724894166
-      GameUI_7: 1169268731
-      GameUI_8: -1139924371
-      GameUI_9: 2097879782
       HealthBar: -590071447
       ProgressBar: -425235917
+      Settings: -687128563
+      Slot_Armor: -1630790116
+      Slot_Belt: 932810690
+      Slot_Boots: 1169268731
+      Slot_Gauntlet: -1724894166
+      Slot_Helmet: 1259542233
+      Slot_Necklace: 2097879782
+      Slot_Ring: -1139924371
+      Slot_Shield: -1876485542
+      Slot_Sword: -576983941
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
