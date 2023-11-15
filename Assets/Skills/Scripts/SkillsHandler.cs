@@ -9,8 +9,12 @@ public class SkillsHandler : MonoBehaviour
 
     public Dictionary<SkillNameTag, SkillActivator> AllSkills { get; private set; } = new();
     Dictionary<SkillNameTag, SkillActivator> breakthroughSkills = new();
-    public event Action<SkillNameTag> skillBreakthrough;
-
+    public static event Action<SkillNameTag> skillBreakthrough;
+    public static List<SkillNameTag> passiveSkills = new()
+    {
+        SkillNameTag.Heal, SkillNameTag.Attack, SkillNameTag.Defense, SkillNameTag.Health,
+        SkillNameTag.Cooldown, SkillNameTag.OneOnOne, SkillNameTag.EfficientXP, SkillNameTag.Speed
+    };
     private void Awake()
     {
         SkillActivator[] skillActivators = GetComponentsInChildren<SkillActivator>();
