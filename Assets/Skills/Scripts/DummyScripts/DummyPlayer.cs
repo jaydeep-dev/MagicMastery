@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DummyPlayer : MonoBehaviour
 {
+    [SerializeField] List<SkillNameTag> skillsToActivate;
+    [SerializeField] List<SkillNameTag> skillsToMaxLater;
+    [SerializeField] List<SkillNameTag> skillsToActivateEvenLater;
     SkillsHandler skillsHandler;
     private void Awake()
     {
@@ -12,38 +15,30 @@ public class DummyPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*skillsHandler.ActivateSkill(SkillNameTag.LighteningBolt);
-        skillsHandler.ActivateSkill(SkillNameTag.ToxicField);
-        skillsHandler.ActivateSkill(SkillNameTag.FireMissile);
-        skillsHandler.ActivateSkill(SkillNameTag.WindGust);
-        skillsHandler.ActivateSkill(SkillNameTag.IceBlast);
-        skillsHandler.ActivateSkill(SkillNameTag.LavaField);*/
-        //skillsHandler.ActivateSkill(SkillNameTag.IceField);
-        skillsHandler.ActivateSkill(SkillNameTag.ToxicField);
-        skillsHandler.LevelUpSkill(SkillNameTag.ToxicField);
-        skillsHandler.LevelUpSkill(SkillNameTag.ToxicField);
-        skillsHandler.ActivateSkill(SkillNameTag.LavaField);
-        skillsHandler.LevelUpSkill(SkillNameTag.LavaField);
-        skillsHandler.LevelUpSkill(SkillNameTag.LavaField);        
+        foreach(var skillNameTag in skillsToActivate)
+        {
+            skillsHandler.ActivateSkill(skillNameTag);
+        }
+
         Invoke(nameof(MaxLevel), 10);
     }
 
     void MaxLevel()
     {
-        /*skillsHandler.LevelUpSkill(SkillNameTag.LighteningBolt);
-        skillsHandler.LevelUpSkill(SkillNameTag.LighteningBolt);
-        skillsHandler.LevelUpSkill(SkillNameTag.ToxicField);
-        skillsHandler.LevelUpSkill(SkillNameTag.ToxicField);
-        skillsHandler.LevelUpSkill(SkillNameTag.FireMissile);
-        skillsHandler.LevelUpSkill(SkillNameTag.FireMissile);
-        skillsHandler.LevelUpSkill(SkillNameTag.WindGust);
-        skillsHandler.LevelUpSkill(SkillNameTag.WindGust);
-        skillsHandler.LevelUpSkill(SkillNameTag.IceBlast);
-        skillsHandler.LevelUpSkill(SkillNameTag.IceBlast);
-        skillsHandler.LevelUpSkill(SkillNameTag.LavaField);
-        skillsHandler.LevelUpSkill(SkillNameTag.LavaField);*/
-        //skillsHandler.LevelUpSkill(SkillNameTag.IceField);
-        //skillsHandler.LevelUpSkill(SkillNameTag.IceField);
-        skillsHandler.ActivateSkill(SkillNameTag.Cooldown);
+        foreach(var skillNameTag in skillsToMaxLater)
+        {
+            skillsHandler.LevelUpSkill(skillNameTag);
+            skillsHandler.LevelUpSkill(skillNameTag);
+        }
+
+        Invoke(nameof(ActivateSkillsLate), 10);
+    }
+
+    void ActivateSkillsLate()
+    {
+        foreach (var skillNameTag in skillsToActivateEvenLater)
+        {
+            skillsHandler.ActivateSkill(skillNameTag);
+        }
     }
 }

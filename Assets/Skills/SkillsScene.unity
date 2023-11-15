@@ -1354,6 +1354,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099f3202d2b111546b7169811fe99c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillsToActivate: 09000000000000000100000002000000030000000400000005000000060000000700000008000000
+  skillsToMaxLater: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
+  skillsToActivateEvenLater: 0a0000000c0000000b000000
 --- !u!4 &1505894958
 Transform:
   m_ObjectHideFlags: 0
@@ -1964,7 +1967,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
