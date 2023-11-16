@@ -7,12 +7,16 @@ public class MaxHealth : SkillActivator
     [SerializeField] float maxHealthI;
     [SerializeField] float maxHealthII;
     [SerializeField] float maxHealthIII;
-    //player = how to get player
+    IPlayer player;
+    private void Awake()
+    {
+      player = transform.root.GetComponent<IPlayer>();
+    }
 
     public override void Activate()
     {
         base.Activate();
-        player.SetStatMultiplier(Stat.MaxHealth, maxHealthI);
+        player.SetStatMultiplier(IPlayer.Stat.MaxHealth, maxHealthI);
     }
 
     public override void LevelUp()
@@ -20,11 +24,11 @@ public class MaxHealth : SkillActivator
         base.LevelUp();
         if (CurrentLevel == 2)
         {
-           player.SetStatMultiplier(Stat.MaxHealth, maxHealthII);
+           player.SetStatMultiplier(IPlayer.Stat.MaxHealth, maxHealthII);
         }
         if (CurrentLevel == 3)
         {
-           player.SetStatMultiplier(Stat.MaxHealth, maxHealthIII);
+           player.SetStatMultiplier(IPlayer.Stat.MaxHealth, maxHealthIII);
         }
     }
 
