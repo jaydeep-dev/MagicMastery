@@ -10,6 +10,7 @@ public class SimpleProjectile : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] bool rotateSpriteTowardsTarget;
     [SerializeField] Vector2 projectileDirectionInSprite;
+    [SerializeField] bool destroyOnHit;
     bool enemyHit;
     float damage;
     Vector2 startPoint;
@@ -59,6 +60,9 @@ public class SimpleProjectile : MonoBehaviour
 
         enemy.Damage(skillsAugmentor.CalculateModifiedDamage(damage, enemy.IsBoss));
         enemyHit = true;
-        Destroy(gameObject);
+        if(destroyOnHit)
+        {
+            Destroy(gameObject);
+        }        
     }
 }

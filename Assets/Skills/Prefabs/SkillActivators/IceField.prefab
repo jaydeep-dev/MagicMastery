@@ -51,8 +51,9 @@ MonoBehaviour:
   skillNameTag: 6
   cooldownTime: 0.2
   vfx: {fileID: 1710980192790991368}
-  baseRadius: 1
-  increasedRadius: 2
+  skillsAugmentor: {fileID: 0}
+  baseRadius: 3
+  increasedRadius: 5
   damage: 3
   slowSpeedMultiplier: 0.6
 --- !u!1 &3300444685885899988

@@ -8,7 +8,7 @@ public class IcicleBlast : SkillActivator
     List<IceShot> iceShots = new();
     List<Vector2> directions = new()
     {
-        Vector2.right, Vector2.left, Vector2.up, Vector2.right, 
+        Vector2.right, Vector2.left, Vector2.up, Vector2.down, 
         new Vector2(1, 1).normalized, new Vector2(1, -1).normalized,
         new Vector2(-1, 1).normalized, new Vector2(-1, -1).normalized
     };

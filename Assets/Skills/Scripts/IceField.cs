@@ -33,6 +33,16 @@ public class IceField : SkillActivator
     {
         float radius = CurrentLevel == 3 ? increasedRadius : baseRadius;
         var enemies = new List<Collider2D>(Physics2D.OverlapCircleAll(transform.position, radius, enemyLayer));
+        if(CurrentLevel == 1)
+        {
+            foreach(var enemy in enemies)
+            {
+                var enemyComponent = enemy.GetComponent<IEnemy>();
+                enemyComponent.Damage(skillsAugmentor.CalculateModifiedDamage(damage, enemyComponent.IsBoss));
+            }
+
+            return;
+        }
 
         //crude implementation. Can be optimized later if required.
        

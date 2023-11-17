@@ -50,8 +50,9 @@ MonoBehaviour:
   skillNameTag: 5
   cooldownTime: 5
   vfx: {fileID: 0}
+  skillsAugmentor: {fileID: 0}
   lavaFieldInstancePrefab: {fileID: 7623696133991951454, guid: 6a74e232ca32a64458a2687079194546, type: 3}
   baseDamage: 5
   increasedDamage: 10
-  baseRadius: 1
-  increasedRadius: 2
+  baseRadius: 3
+  increasedRadius: 5

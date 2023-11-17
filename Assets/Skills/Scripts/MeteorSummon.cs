@@ -23,7 +23,7 @@ public class MeteorSummon : SkillActivator
         float damageRadius = CurrentLevel == 1 ? baseDamageRadius : increasedDamageRadius;
         for(int i=0;i<meteorCount;i++)
         {
-            var target = attackRadius * Random.insideUnitCircle;
+            var target = new Vector2(transform.position.x, transform.position.y) + attackRadius * Random.insideUnitCircle;
             var meteor = Instantiate(meteorPrefab);
             meteor.SetDamage(damage);
             meteor.InjectAugmentor(skillsAugmentor);

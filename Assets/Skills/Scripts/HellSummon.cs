@@ -34,7 +34,7 @@ public class HellSummon : SkillActivator
 
         for (int i = 0; i < meteorCount; i++)
         {            
-            var target = attackRadius * Random.insideUnitCircle;
+            var target = new Vector2(transform.position.x, transform.position.y) + attackRadius * Random.insideUnitCircle;
             FireMeteor(target);
         }
     }

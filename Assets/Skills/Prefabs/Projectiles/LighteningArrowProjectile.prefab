@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 2507820566426829827}
   - component: {fileID: 5703771909005778589}
   - component: {fileID: 1921898139815887142}
-  - component: {fileID: 2274730998072951379}
+  - component: {fileID: 6263879283990659757}
   m_Layer: 8
   m_Name: LighteningArrowProjectile
   m_TagString: Untagged
@@ -401,8 +401,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!58 &2274730998072951379
-CircleCollider2D:
+--- !u!60 &6263879283990659757
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -433,6 +433,33 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25756252}
-  serializedVersion: 2
-  m_Radius: 0.24243748
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.5, y: -0.5}
+      - {x: 0.5, y: -0.28125}
+      - {x: 0.484375, y: -0.21875}
+      - {x: 0.359375, y: 0.0625}
+      - {x: 0.15625, y: 0.390625}
+      - {x: 0.03125, y: 0.5}
+      - {x: -0.046875, y: 0.5}
+      - {x: -0.21875, y: 0.3125}
+      - {x: -0.296875, y: 0.140625}
+      - {x: -0.390625, y: -0.046875}
+      - {x: -0.5, y: -0.296875}
+      - {x: -0.5, y: -0.484375}
+      - {x: -0.46875, y: -0.5}
+      - {x: -0.3125, y: -0.5}
+      - {x: -0.140625, y: -0.4375}
+      - {x: 0.046875, y: -0.421875}
+      - {x: 0.171875, y: -0.5}
+  m_UseDelaunayMesh: 0
