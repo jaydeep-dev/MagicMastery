@@ -17,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
     private int currentWaveIndex = 0;
     private int remainimgEnemyCount = 0;
 
+    public static event System.Action<float> OnWaveSpawned;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,14 +66,15 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnWave()
     {
         AnimateWaveText();
-
+        var remainingTime = spawnInterval - currentTime;
         currentTime = 0f;
         spawnInterval = enemyWavesList[currentWaveIndex].nextWaveTime;
-        TempWaveSpawn();
+        SpawnEnemies();
 
         UpdateRemainingCount();
 
         currentWaveIndex++;
+        OnWaveSpawned?.Invoke(remainingTime);
     }
 
     private void AnimateWaveText()
@@ -82,7 +85,7 @@ public class EnemySpawner : MonoBehaviour
 
     #region Temp Methods
 
-    private void TempWaveSpawn()
+    private void SpawnEnemies()
     {
         var spawnPosTop = player.transform.position + (Vector3.up * 15f);
         var spawnPosBottom = player.transform.position + (Vector3.down * 15f);
@@ -99,16 +102,16 @@ public class EnemySpawner : MonoBehaviour
             {
                 var enemy = enemyInfo.enemy;
 
-                spawnPosTop.x = Random.Range(spawnPosTop.x - 10, spawnPosTop.x + 10);
+                spawnPosTop.x = Random.Range(spawnPosTop.x - 20f, spawnPosTop.x + 20f);
                 var enemy1 = Instantiate(enemy, spawnPosTop, Quaternion.identity, waveObj.transform);
 
-                spawnPosBottom.x = Random.Range(spawnPosBottom.x - 10, spawnPosBottom.x + 10);
+                spawnPosBottom.x = Random.Range(spawnPosBottom.x - 20f, spawnPosBottom.x + 20f);
                 var enemy2 = Instantiate(enemy, spawnPosBottom, Quaternion.identity, waveObj.transform);
 
-                spawnPosLeft.y = Random.Range(spawnPosLeft.y - 10, spawnPosLeft.y + 10);
+                spawnPosLeft.y = Random.Range(spawnPosLeft.y - 10f, spawnPosLeft.y + 10f);
                 var enemy3 =Instantiate(enemy, spawnPosLeft, Quaternion.identity, waveObj.transform);
 
-                spawnPosRight.y = Random.Range(spawnPosRight.y - 10, spawnPosRight.y + 10);
+                spawnPosRight.y = Random.Range(spawnPosRight.y - 10f, spawnPosRight.y + 10f);
                 var enemy4 = Instantiate(enemy, spawnPosRight, Quaternion.identity, waveObj.transform);
 
                 enemy1.GetComponent<HealthManager>().SetMaxHealth(enemyInfo.healthMultiplier);

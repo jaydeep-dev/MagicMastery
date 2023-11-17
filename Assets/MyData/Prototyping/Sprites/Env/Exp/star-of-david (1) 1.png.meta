@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c9238af45b918bd4c94b112a249ff290
+guid: 229e390b5ce38814fb71e185520ebdc3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -74,7 +74,7 @@ TextureImporter:
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
@@ -108,112 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Panel
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 927
-        width: 1264
-        height: 993
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 190, y: 134, z: 190, w: 136}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 961af89d852b4544db26cfafa52d62b7
-      internalID: 856780382
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SelectedBtnBG
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 721
-        width: 939
-        height: 129
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 781036dac21220044a105b55fa90fab1
-      internalID: 1666966348
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BtnBG
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 557
-        width: 938
-        height: 129
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 50, y: 25, z: 50, w: 25}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3856a766eb20d48489dd70431b95c486
-      internalID: 799098120
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BG
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 292
-        width: 938
-        height: 203
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 50, y: 50, z: 50, w: 50}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 89382f5ed6903fa438c72d10cb022862
-      internalID: 1913206294
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GameMenusAlteredSheet_4
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 0
-        width: 936
-        height: 257
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9e478c4e04464a24bb96031f5c626805
-      internalID: 614419431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -224,12 +119,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      BG: 1913206294
-      BtnBG: 799098120
-      GameMenusAlteredSheet_4: 614419431
-      Panel: 856780382
-      SelectedBtnBG: 1666966348
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

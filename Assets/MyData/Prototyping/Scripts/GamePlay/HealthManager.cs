@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour, IDamagable
 {
-    [SerializeField] private float maxHelath;
+    [SerializeField] private float maxHealth;
 
     public event System.Action OnDie;
     public event System.Action OnDamageTaken;
 
     [field: SerializeField] public float Health { get; private set; }
-    public float MaxHealth => maxHelath;
+    public float MaxHealth => maxHealth;
 
     private void Start()
     {
-        Health = maxHelath;
+        Health = maxHealth;
     }
 
-    public void SetMaxHealth(float healthMultiplier) => maxHelath *= healthMultiplier;
+    public void SetMaxHealth(float healthMultiplier) => maxHealth *= healthMultiplier;
 
     public void TakeDamage(float damage)
     {
-        Debug.Log(transform.name + " Is Taking Damage");
+        //Debug.Log(transform.name + " Is Taking Damage");
         Health -= damage;
         OnDamageTaken?.Invoke();
 
