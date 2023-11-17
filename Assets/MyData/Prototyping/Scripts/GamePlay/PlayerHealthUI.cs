@@ -22,6 +22,7 @@ public class PlayerHealthUI : MonoBehaviour
 
     private void OnDie()
     {
+        SoundManager.Instance.PlayGameOverSFX();
         Destroy(gameObject);
         LeanTween.delayedCall(5f, () =>
         {

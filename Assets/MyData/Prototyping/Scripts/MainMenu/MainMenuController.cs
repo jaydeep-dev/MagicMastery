@@ -9,7 +9,7 @@ public class MainMenuController : MonoBehaviour
 
     public void LoadGameScene()
     {
-        SceneManager.LoadScene("PrototypeGame");
+        LeanTween.delayedCall(.7f, () => SceneManager.LoadScene("PrototypeGame"));
     }
 
     private void Update()
@@ -24,4 +24,8 @@ public class MainMenuController : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void SetMusicToggle(bool isOn) => GameManager.EnabledMusic = isOn;
+
+    public void SetSFXToggle(bool isOn) => GameManager.EnabledSFX = isOn;
 }

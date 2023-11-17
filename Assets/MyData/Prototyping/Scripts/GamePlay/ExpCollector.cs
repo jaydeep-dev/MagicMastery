@@ -27,8 +27,11 @@ public class ExpCollector : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
+        if (expBarTween != null)
+            LeanTween.cancel(expBarTween.id);
+        Debug.Log("Expcolletor Disabled");
         OnLevelUp = null;
     }
 

@@ -25,6 +25,7 @@ public class PauseHandler : MonoBehaviour
 
     private void OnBossKilled()
     {
+        SoundManager.Instance.PlayGameWinSFX();
         winUi.SetActive(true);
         Time.timeScale = 0;
     }

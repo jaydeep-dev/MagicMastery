@@ -77,6 +77,13 @@ public class SkillUIController : MonoBehaviour
             selectedUISkills.Add(selectedSkill);
             Debug.Log(selectedSkill + "____" + uiSkills[randomIndex] + " ------ Index: " + randomIndex);
 
+            // Current Level Of Selected Skill
+            if(skillsHandler.GetCurrentSkills().Exists(x => x.SkillNameTag == selectedSkill.skillName))
+            {
+                var ownedSkill = skillsHandler.GetCurrentSkills().Find(x => x.SkillNameTag == selectedSkill.skillName);
+                selectedSkill.currentLevel = ownedSkill.CurrentLevel;
+            }
+
             // Set Data for UI
             slot.SetSkillData(selectedSkill);
         }
@@ -102,6 +109,7 @@ public struct SkillUIInfo
 {
     public Sprite logo;
     public SkillNameTag skillName;
+    public int currentLevel;
 
     public override string ToString() => JsonUtility.ToJson(this);
 }

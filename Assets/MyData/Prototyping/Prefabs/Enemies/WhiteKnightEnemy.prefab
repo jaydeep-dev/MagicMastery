@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4904941080257564125}
   - component: {fileID: 5292584899153849461}
   - component: {fileID: 7186933657627418714}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WhiteKnightEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -356963769, guid: e11acfa3e0440e8469ecd1eb3d256ab9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -211,5 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25c848f52e001d4a8a30d201e61963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  maxHealth: 100000
+  defence: 1000
   <Health>k__BackingField: 0
