@@ -13,6 +13,7 @@ public class EnemyController : MonoBehaviour, IEnemy
     [SerializeField] private ParticleSystem deathParticlePrefab;
 
     public static event System.Action OnAnyEnemyKilled;
+    public static event System.Action OnBossKilled;
 
     private Rigidbody2D rb;
     private PlayerMovement player;
@@ -22,13 +23,16 @@ public class EnemyController : MonoBehaviour, IEnemy
     private float currentTime = 0f;
     private const float damageInterval = 1f;
 
-    private int xMoveHash = Animator.StringToHash("xMove");
-    private int yMoveHash = Animator.StringToHash("yMove");
+    private readonly int xMoveHash = Animator.StringToHash("xMove");
+    private readonly int yMoveHash = Animator.StringToHash("yMove");
+    private readonly int attackHash = Animator.StringToHash("Attack");
 
     private int damageTweenId;
 
     private Animator animator;
     private float speedMultiplier = 1;
+
+    [field: SerializeField] public bool IsBoss { get; private set; }
 
     private void Awake()
     {
@@ -58,8 +62,13 @@ public class EnemyController : MonoBehaviour, IEnemy
         var deathParticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         LeanTween.delayedCall(deathParticle.gameObject, deathParticle.main.duration, () => Destroy(deathParticle.gameObject));
 
-        OnAnyEnemyKilled?.Invoke();
         LeanTween.cancel(gameObject);
+
+        OnAnyEnemyKilled?.Invoke();
+
+        if (IsBoss)
+            OnBossKilled?.Invoke();
+
         Destroy(gameObject);
     }
 
@@ -114,6 +123,9 @@ public class EnemyController : MonoBehaviour, IEnemy
 
         if (isPlayer && canDamage)
         {
+            if (IsBoss)
+                animator.SetTrigger(attackHash);
+
             var damagable = player.GetComponent<IDamagable>();
             damagable.TakeDamage(damage);
             canDamage = false;

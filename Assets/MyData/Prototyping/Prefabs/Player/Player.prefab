@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5821228244994579689}
   - component: {fileID: 2593244047212458013}
   - component: {fileID: 3490287294908090173}
+  - component: {fileID: 3910031826322403651}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -89,7 +90,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -234,6 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  defence: 5
   <Health>k__BackingField: 0
 --- !u!114 &2593244047212458013
 MonoBehaviour:
@@ -258,6 +260,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 585e76d1a21ff86448a16d372c06131a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3910031826322403651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384750455492423056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6724662dc8c9b3845b26adadc046047a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2259863628076071369

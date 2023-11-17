@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1f;
 
+    private float moveSpeedMultiplier = 1f;
     private Rigidbody2D rb;
     private Vector2 moveVector = Vector2.zero;
 
@@ -18,8 +19,10 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //rb.MovePosition(Time.fixedDeltaTime * moveSpeed * moveVector + rb.position);
-        rb.velocity = moveSpeed * Time.fixedDeltaTime * moveVector;
+        rb.velocity = moveSpeed * moveSpeedMultiplier * Time.fixedDeltaTime * moveVector;
     }
+
+    public void SetMoveSpeedMultiplier(float multiplier) => moveSpeedMultiplier = multiplier;
 
     /// <summary>
     /// Will be called from PlayerInput Component

@@ -8,6 +8,7 @@ public class PauseHandler : MonoBehaviour
 {
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject gameInfoUI;
+    [SerializeField] private GameObject winUi;
 
     private bool isPaused;
     private bool isGameStarted;
@@ -15,6 +16,22 @@ public class PauseHandler : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 0;
+    }
+
+    private void OnEnable()
+    {
+        EnemyController.OnBossKilled += OnBossKilled;
+    }
+
+    private void OnBossKilled()
+    {
+        winUi.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    private void OnDisable()
+    {
+        EnemyController.OnBossKilled -= OnBossKilled;
     }
 
     public void OnPause(InputAction.CallbackContext ctx)

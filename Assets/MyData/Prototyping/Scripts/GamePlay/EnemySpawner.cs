@@ -11,6 +11,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemyCountText;
     [SerializeField] private List<EnemyWaveSO> enemyWavesList;
 
+    [Header("Boss Settings")]
+    [SerializeField] private GameObject bossPrefab;
+
     private float currentTime = 0f;
     private float spawnInterval = 15f;
 
@@ -28,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
     private void OnEnable()
     {
         EnemyController.OnAnyEnemyKilled += OnAnyEnemyKilled;
+        ProgressbarUIController.OnTimeOver += SpawnBossEnemy;
     }
 
     private void OnAnyEnemyKilled()
@@ -47,9 +51,25 @@ public class EnemySpawner : MonoBehaviour
         enemyCountText.text = $"Remaining Enemies: {remainimgEnemyCount:D2}";
     }
 
+    public void SpawnBossEnemy()
+    {
+        KillRemainingEnemies();
+        Instantiate(bossPrefab, player.transform.position + (Vector3.up * 10f), Quaternion.identity);
+    }
+
+    private void KillRemainingEnemies()
+    {
+        gameObject.SetActive(false);
+        foreach (var enemy in FindObjectsOfType<EnemyController>())
+        {
+            enemy.GetComponent<IEnemy>().Damage(100 * 100);
+        }
+    }
+
     private void OnDisable()
     {
         EnemyController.OnAnyEnemyKilled -= OnAnyEnemyKilled;
+        ProgressbarUIController.OnTimeOver -= SpawnBossEnemy;
     }
 
     // Update is called once per frame
@@ -83,8 +103,6 @@ public class EnemySpawner : MonoBehaviour
         waveInfoText.transform.LeanScale(Vector3.one, 1f).setLoopPingPong(1).setEaseOutBounce().setDelay(1f);
     }
 
-    #region Temp Methods
-
     private void SpawnEnemies()
     {
         var spawnPosTop = player.transform.position + (Vector3.up * 15f);
@@ -93,6 +111,10 @@ public class EnemySpawner : MonoBehaviour
         var spawnPosRight = player.transform.position + (Vector3.right * 15f);
 
         spawnPosTop.z = spawnPosBottom.z = spawnPosLeft.z = spawnPosRight.z = 0f;
+
+        spawnPosTop.x = spawnPosBottom.x = -20f;
+        spawnPosLeft.y = spawnPosRight.y = -10f;
+
         var waveObj = new GameObject($"Wave {currentWaveIndex + 1}");
         waveObj.transform.SetParent(transform);
         int spawnCount = 0;
@@ -102,16 +124,16 @@ public class EnemySpawner : MonoBehaviour
             {
                 var enemy = enemyInfo.enemy;
 
-                spawnPosTop.x = Random.Range(spawnPosTop.x - 20f, spawnPosTop.x + 20f);
+                spawnPosTop.x += 2;
                 var enemy1 = Instantiate(enemy, spawnPosTop, Quaternion.identity, waveObj.transform);
 
-                spawnPosBottom.x = Random.Range(spawnPosBottom.x - 20f, spawnPosBottom.x + 20f);
+                spawnPosBottom.x += 2;
                 var enemy2 = Instantiate(enemy, spawnPosBottom, Quaternion.identity, waveObj.transform);
 
-                spawnPosLeft.y = Random.Range(spawnPosLeft.y - 10f, spawnPosLeft.y + 10f);
+                spawnPosLeft.y += 1;
                 var enemy3 =Instantiate(enemy, spawnPosLeft, Quaternion.identity, waveObj.transform);
 
-                spawnPosRight.y = Random.Range(spawnPosRight.y - 10f, spawnPosRight.y + 10f);
+                spawnPosRight.y += 1;
                 var enemy4 = Instantiate(enemy, spawnPosRight, Quaternion.identity, waveObj.transform);
 
                 enemy1.GetComponent<HealthManager>().SetMaxHealth(enemyInfo.healthMultiplier);
@@ -123,6 +145,4 @@ public class EnemySpawner : MonoBehaviour
 
         remainimgEnemyCount += spawnCount;
     }
-
-    #endregion
 }
