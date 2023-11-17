@@ -7,7 +7,7 @@ public class Speed : SkillActivator
     [SerializeField] float speedI;
     [SerializeField] float speedII;
     [SerializeField] float speedIII;
-    Stat stat;
+    [SerializeField] Stat stat;
     IPlayer player;
     private void Awake()
     {
@@ -17,7 +17,7 @@ public class Speed : SkillActivator
     public override void Activate()
     {
         base.Activate();
-        player.SetStatMultiplier(stat.Speed, speedI);
+        player.SetStatMultiplier(stat, speedI);
     }
 
     public override void LevelUp()
@@ -25,11 +25,11 @@ public class Speed : SkillActivator
         base.LevelUp();
         if (CurrentLevel == 2)
         {
-           player.SetStatMultiplier(stat.Speed, speedII);
+           player.SetStatMultiplier(stat, speedII);
         }
         if (CurrentLevel == 3)
         {
-           player.SetStatMultiplier(stat.Speed, speedIII);
+           player.SetStatMultiplier(stat, speedIII);
         }
     }
 

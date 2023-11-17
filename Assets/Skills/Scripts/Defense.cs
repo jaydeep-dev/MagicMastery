@@ -7,6 +7,7 @@ public class Defense : SkillActivator
     [SerializeField] float defenseI;
     [SerializeField] float defenseII;
     [SerializeField] float defenseIII;
+    [SerializeField] Stat stat;
     IPlayer player;
     private void Awake()
     {
@@ -16,7 +17,7 @@ public class Defense : SkillActivator
     public override void Activate()
     {
         base.Activate();
-        player.SetStatMultiplier(IPlayer.Stat.Defense, defenseI);
+        player.SetStatMultiplier(stat, defenseI);
     }
 
     public override void LevelUp()
@@ -24,11 +25,11 @@ public class Defense : SkillActivator
         base.LevelUp();
         if (CurrentLevel == 2)
         {
-           player.SetStatMultiplier(IPlayer.Stat.Defense, defenseII);
+           player.SetStatMultiplier(stat, defenseII);
         }
         if (CurrentLevel == 3)
         {
-           player.SetStatMultiplier(IPlayer.Stat.Defense, defenseIII);
+           player.SetStatMultiplier(stat, defenseIII);
         }
     }
 

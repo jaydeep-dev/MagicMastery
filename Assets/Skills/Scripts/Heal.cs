@@ -8,7 +8,6 @@ public class Heal : SkillActivator
     [SerializeField] int healTimeI;
     [SerializeField] int healTimeII;
     [SerializeField] int healTimeIII;
-    int healTime;
     IPlayer player;
     private void Awake()
     {
@@ -18,8 +17,7 @@ public class Heal : SkillActivator
     public override void Activate()
     {
         base.Activate();
-        healTime = healTimeI;
-        player.Heal(healMultiplier);
+        cooldownTime = healTimeI;
     }
 
     public override void LevelUp()
@@ -27,49 +25,24 @@ public class Heal : SkillActivator
         base.LevelUp();
         if (CurrentLevel == 2)
         {
-          healTime = healTimeII;
-          player.Heal(healMultiplier);
+          cooldownTime = healTimeII;
         }
         if (CurrentLevel == 3)
         {
-          healTime = healTimeIII;
-          player.Heal(healMultiplier);
+          cooldownTime = healTimeIII;
         }
     }
-    // public void Heal(Stat stat, float multiplier){
-    //   stat.MaxHealth = multiplier;
-
-    // }
 
 
     protected override void Update()
     {
-        if(!IsActive)
-        {
-            return;
-        }
-
-        healTime -= Time.deltaTime;
-
-        if(healTime <= 0)
-        {
-            player.Heal(healMultiplier);
-            healTime = healTimeI;
-            
-            if (CurrentLevel == 2)
-            {
-              healTime = healTimeII;
-            }
-            if (CurrentLevel == 3)
-            {
-              healTime = healTimeIII;
-            }
-        }
+      base.Update();
 
     }
 
     protected override void UseSkill()
     {
-        //It's a passive skill
+        // may need to check that player is not being damaged
+        player.Heal(healMultiplier);
     }
 }

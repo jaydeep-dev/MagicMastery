@@ -7,7 +7,7 @@ public class EfficientXP : SkillActivator
     [SerializeField] float efficiencyI;
     [SerializeField] float efficiencyII;
     [SerializeField] float efficiencyIII;
-    Stat stat;
+    [SerializeField] Stat stat;
 
     IPlayer player;
     private void Awake()
@@ -18,7 +18,7 @@ public class EfficientXP : SkillActivator
     public override void Activate()
     {
         base.Activate();
-        player.SetStatMultiplier(stat.XPGainEfficiency, efficiencyI);
+        player.SetStatMultiplier(stat, efficiencyI);
     }
 
     public override void LevelUp()
@@ -26,11 +26,11 @@ public class EfficientXP : SkillActivator
         base.LevelUp();
         if (CurrentLevel == 2)
         {
-           player.SetStatMultiplier(stat.XPGainEfficiency, efficiencyII);
+           player.SetStatMultiplier(stat, efficiencyII);
         }
         if (CurrentLevel == 3)
         {
-           player.SetStatMultiplier(stat.XPGainEfficiency, efficiencyIII);
+           player.SetStatMultiplier(stat, efficiencyIII);
         }
     }
 
