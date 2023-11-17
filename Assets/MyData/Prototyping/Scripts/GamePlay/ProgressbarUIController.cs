@@ -16,6 +16,22 @@ public class ProgressbarUIController : MonoBehaviour
         InvokeRepeating(nameof(UpdateProgressBar), 0, 1);
     }
 
+    private void OnEnable()
+    {
+        EnemySpawner.OnWaveSpawned += OnWaveSpawned;
+    }
+
+    private void OnWaveSpawned(float remainingTime)
+    {
+        Debug.Log("Current Time: " + currentTime + " Remaining Time: " + remainingTime + " Target Time: " + (currentTime + remainingTime));
+        currentTime += remainingTime;
+    }
+
+    private void OnDisable()
+    {
+        EnemySpawner.OnWaveSpawned -= OnWaveSpawned;
+    }
+
     private void UpdateProgressBar()
     {
         currentTime++;

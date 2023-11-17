@@ -36,7 +36,7 @@ public class ExpCollector : MonoBehaviour
         if (expBarTween != null)
             LeanTween.cancel(expBarTween.id);
 
-        expBarTween = LeanTween.value(currentExp, targetExp, .75f)
+        expBarTween = LeanTween.value(currentExp, targetExp, .5f)
         .setOnComplete(() => HandleExpBar(currentExp))
         .setOnUpdate((float val) => HandleExpBar(val));
     }
@@ -56,7 +56,7 @@ public class ExpCollector : MonoBehaviour
     {
         currentExp = 0;
         targetExp = ((int)expBarTween.to.x) - maxExp;
-        Debug.Log(currentExp + " -> " + (expBarTween.to.x - maxExp));
+        Debug.Log(currentExp + " -> " + targetExp);
         TweenExpBar(targetExp);
         maxExp *= 2; // Makling twice as long
         OnLevelUp?.Invoke();

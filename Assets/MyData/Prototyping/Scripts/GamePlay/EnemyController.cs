@@ -54,13 +54,12 @@ public class EnemyController : MonoBehaviour, IEnemy
     private void OnDie()
     {
         var exp = Instantiate(expDropPrefab, transform.position, transform.rotation);
-        LeanTween.rotateZ(exp, (Random.Range(0f, 1f) >= .5f ? -360 : 360) * 2, 1).setLoopClamp();
 
         var deathParticle = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
         LeanTween.delayedCall(deathParticle.gameObject, deathParticle.main.duration, () => Destroy(deathParticle.gameObject));
 
         OnAnyEnemyKilled?.Invoke();
-
+        LeanTween.cancel(gameObject);
         Destroy(gameObject);
     }
 

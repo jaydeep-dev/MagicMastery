@@ -194,8 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40dd452afa341b4185c3157d7eaf45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  damage: 2
+  moveSpeed: 3.5
+  damage: 1
   expDropPrefab: {fileID: 6369247221953017021, guid: 97ff7c3a1bd9b174899c826e258d8dc0, type: 3}
   deathParticlePrefab: {fileID: 8943895053997994745, guid: 063a3fb26beb5c84ca60b124ce0077d8, type: 3}
 --- !u!114 &5960363994640326105
@@ -210,5 +210,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25c848f52e001d4a8a30d201e61963e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHelath: 15
+  maxHealth: 10
   <Health>k__BackingField: 0

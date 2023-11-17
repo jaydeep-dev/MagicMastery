@@ -16,6 +16,8 @@ public class SkillUIController : MonoBehaviour
 
     public static event System.Action<SkillNameTag> OnSkillSelected;
 
+    public static bool IsShowingUI = false;
+
     private void OnEnable()
     {
         ExpCollector.OnLevelUp += OnLevelUp;
@@ -38,30 +40,30 @@ public class SkillUIController : MonoBehaviour
     {
         skillUI.SetActive(true);
         Time.timeScale = 0;
+        IsShowingUI = true;
+        var selectedUISkills = new List<SkillUIInfo>();
         foreach (var slot in skillSlotsList)
         {
-            // Get Random Skill
-            int randomIndex = Random.Range(0, allSkillsUIList.Count);
-
             // Prepare UI List
-            var skills = new List<SkillNameTag>();
-            allSkillsUIList.ForEach(x => skills.Add(x.skillName));
+            var uiSkills = new List<SkillNameTag>();
+            allSkillsUIList.ForEach(x => uiSkills.Add(x.skillName));
 
             // Get Maxed-out Skills of player
-            var currentSkills = skillsHandler.GetCurrentSkills().FindAll(x => x.CurrentLevel == x.MaxLevel);
-            var maxedSkills = new List<SkillNameTag>();
-            foreach (var skill in currentSkills)
-            {
-                if (skill.CurrentLevel == skill.MaxLevel) continue;
-                maxedSkills.Add(skill.SkillNameTag);
-            }
+            var maxedSkills = skillsHandler.GetCurrentSkills().FindAll(x => x.CurrentLevel == x.MaxLevel);
 
             // Remove them from UI List
-            maxedSkills.ForEach(x => skills.Remove(x));
+            maxedSkills.ForEach(x => uiSkills.Remove(x.SkillNameTag));
+
+            // Remove already selected skill
+            selectedUISkills.ForEach(x => uiSkills.Remove(x.skillName));
+
+            // Get Random Skill
+            int randomIndex = Random.Range(0, uiSkills.Count);
 
             // Select Random Skill For UI
-            var selectedSkill = allSkillsUIList.Find(x => x.skillName == skills[randomIndex]);
-            Debug.Log(selectedSkill + "____" + skills[randomIndex]);
+            var selectedSkill = allSkillsUIList.Find(x => x.skillName == uiSkills[randomIndex]);
+            selectedUISkills.Add(selectedSkill);
+            Debug.Log(selectedSkill + "____" + uiSkills[randomIndex]);
 
             // Set Data for UI
             slot.SetSkillData(selectedSkill);
@@ -76,6 +78,7 @@ public class SkillUIController : MonoBehaviour
 
     public static void InvokeSelectedEvent(SkillNameTag tag)
     {
+        IsShowingUI = false;
         OnSkillSelected?.Invoke(tag);
     }
 }
