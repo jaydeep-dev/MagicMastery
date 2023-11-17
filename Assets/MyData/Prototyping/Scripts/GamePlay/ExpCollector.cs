@@ -9,6 +9,7 @@ public class ExpCollector : MonoBehaviour
     [SerializeField] private int maxExp;
     [SerializeField] private Image expBar;
 
+    private float expMultiplier = 1f;
     private int currentExp = 0;
     private int targetExp = 0;
     private LTDescr expBarTween;
@@ -19,7 +20,7 @@ public class ExpCollector : MonoBehaviour
     {
         if (collision.TryGetComponent(out PickupItem item) && item.pickupType == PickupItem.Type.Exp)
         {
-            targetExp += item.pickupQuantity;
+            targetExp += Mathf.CeilToInt(item.pickupQuantity * expMultiplier);
             LeanTween.move(item.gameObject, transform, .1f)
                      .setOnComplete(() => TweenExpBar(targetExp))
                      .setDestroyOnComplete(true);
@@ -30,6 +31,8 @@ public class ExpCollector : MonoBehaviour
     {
         OnLevelUp = null;
     }
+
+    public void SetExpMultiplier(float multiplier) => expMultiplier = multiplier;
 
     private void TweenExpBar(float targetExp)
     {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealthManager : MonoBehaviour, IDamagable
 {
     [SerializeField] private float maxHealth;
+    [SerializeField] private float defence;
 
     public event System.Action OnDie;
     public event System.Action OnDamageTaken;
@@ -17,13 +18,23 @@ public class HealthManager : MonoBehaviour, IDamagable
         Health = maxHealth;
     }
 
+    public void SetDefenceMultiplier(float multiplier) => defence *= multiplier;
+
+    public void SetCurrentHealth(float multiplier) => Health = maxHealth * multiplier;
+
     public void SetMaxHealth(float healthMultiplier) => maxHealth *= healthMultiplier;
 
     public void TakeDamage(float damage)
     {
         //Debug.Log(transform.name + " Is Taking Damage");
-        Health -= damage;
-        OnDamageTaken?.Invoke();
+        defence -= damage;
+        if (defence < 0)
+        {
+            // dmg after defence is broken
+            float dmg = Mathf.Abs(defence);
+            Health -= dmg;
+            OnDamageTaken?.Invoke();
+        }
 
         if (Health <= 0)
             Die();

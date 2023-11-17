@@ -119,7 +119,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 9072446946620740763}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 43eaaedb415ce5c4b8d3002b86bef862, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -198,6 +198,7 @@ MonoBehaviour:
   damage: 7
   expDropPrefab: {fileID: 6369247221953017021, guid: 8fa2ff269207d704f976489ad2e66a43, type: 3}
   deathParticlePrefab: {fileID: 8943895053997994745, guid: 063a3fb26beb5c84ca60b124ce0077d8, type: 3}
+  <IsBoss>k__BackingField: 0
 --- !u!114 &5591583408087663170
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,11 +12,19 @@ public class SkillUIController : MonoBehaviour
     [SerializeField] private GameObject skillUI;
     [SerializeField] private List<SkillSlotSingleUI> skillSlotsList;
 
+    [SerializeField] private List<SkillUIInfo> activeSkillUI;
     [SerializeField] private List<SkillUIInfo> allSkillsUIList;
 
     public static event System.Action<SkillNameTag> OnSkillSelected;
 
     public static bool IsShowingUI = false;
+
+    private bool isFirstSkillSelection;
+
+    private void Awake()
+    {
+        isFirstSkillSelection = true;
+    }
 
     private void OnEnable()
     {
@@ -46,7 +54,11 @@ public class SkillUIController : MonoBehaviour
         {
             // Prepare UI List
             var uiSkills = new List<SkillNameTag>();
-            allSkillsUIList.ForEach(x => uiSkills.Add(x.skillName));
+
+            if (isFirstSkillSelection)
+                activeSkillUI.ForEach(x => uiSkills.Add(x.skillName));
+            else
+                allSkillsUIList.ForEach(x => uiSkills.Add(x.skillName));
 
             // Get Maxed-out Skills of player
             var maxedSkills = skillsHandler.GetCurrentSkills().FindAll(x => x.CurrentLevel == x.MaxLevel);
@@ -63,11 +75,13 @@ public class SkillUIController : MonoBehaviour
             // Select Random Skill For UI
             var selectedSkill = allSkillsUIList.Find(x => x.skillName == uiSkills[randomIndex]);
             selectedUISkills.Add(selectedSkill);
-            Debug.Log(selectedSkill + "____" + uiSkills[randomIndex]);
+            Debug.Log(selectedSkill + "____" + uiSkills[randomIndex] + " ------ Index: " + randomIndex);
 
             // Set Data for UI
             slot.SetSkillData(selectedSkill);
         }
+
+        isFirstSkillSelection = false;
     }
 
     private void OnDisable()
