@@ -8,7 +8,10 @@ public class Heal : SkillActivator
     [SerializeField] int healTimeI;
     [SerializeField] int healTimeII;
     [SerializeField] int healTimeIII;
+    [SerializeField] float healingStartTime;
     IPlayer player;
+    float timeAccumulator;
+    bool canHeal;
     private void Awake()
     {
       player = transform.root.GetComponent<IPlayer>();
@@ -18,6 +21,7 @@ public class Heal : SkillActivator
     {
         base.Activate();
         cooldownTime = healTimeI;
+        timeAccumulator = 0;
     }
 
     public override void LevelUp()
@@ -36,13 +40,27 @@ public class Heal : SkillActivator
 
     protected override void Update()
     {
-      base.Update();
-
+        base.Update();        
+        if(player.WasDamagedThisFrame)
+        {
+            timeAccumulator = 0;
+            canHeal = false;
+            return;
+        }
+        timeAccumulator += Time.deltaTime;
+        if (timeAccumulator > healingStartTime && !canHeal)
+        {
+            canHeal = true;
+        }
     }
 
     protected override void UseSkill()
     {
-        // may need to check that player is not being damaged
+        if(!canHeal)
+        {
+            return;
+        }
+
         player.Heal(healMultiplier);
     }
 }

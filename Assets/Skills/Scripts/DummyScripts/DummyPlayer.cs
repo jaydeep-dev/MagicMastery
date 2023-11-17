@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DummyPlayer : MonoBehaviour
+public class DummyPlayer : MonoBehaviour, IPlayer
 {
     [SerializeField] List<SkillNameTag> skillsToActivate;
     [SerializeField] List<SkillNameTag> skillsToMaxLater;
     [SerializeField] List<SkillNameTag> skillsToActivateEvenLater;
     SkillsHandler skillsHandler;
+
+    public bool WasDamagedThisFrame => false;
+
     private void Awake()
     {
         skillsHandler = GetComponentInChildren<SkillsHandler>();
@@ -40,5 +43,15 @@ public class DummyPlayer : MonoBehaviour
         {
             skillsHandler.ActivateSkill(skillNameTag);
         }
+    }
+
+    public void SetStatMultiplier(Stat stat, float multiplier)
+    {
+        
+    }
+
+    public void Heal(float multiplier)
+    {
+        
     }
 }
