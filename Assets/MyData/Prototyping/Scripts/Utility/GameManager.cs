@@ -15,4 +15,6 @@ public class GameManager
         get => PlayerPrefs.GetInt(nameof(EnabledSFX), 1) == 1;
         set => PlayerPrefs.SetInt(nameof(EnabledSFX), value ? 1 : 0);
     }
+
+    public static bool IsGodMode { get; set; }
 }

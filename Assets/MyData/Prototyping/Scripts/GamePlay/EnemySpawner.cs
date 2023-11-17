@@ -79,6 +79,10 @@ public class EnemySpawner : MonoBehaviour
 
         if (currentTime > spawnInterval && currentWaveIndex < enemyWavesList.Count)
         {
+            if(GameManager.IsGodMode && currentWaveIndex + 1 >= enemyWavesList.Count)
+            {
+                currentWaveIndex = enemyWavesList.Count - 1;
+            }
             SpawnWave();
         }
     }

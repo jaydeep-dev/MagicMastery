@@ -12,6 +12,12 @@ public class MainMenuController : MonoBehaviour
         LeanTween.delayedCall(.7f, () => SceneManager.LoadScene("PrototypeGame"));
     }
 
+    public void ActivateGodMode()
+    {
+        GameManager.IsGodMode = true;
+        LoadGameScene();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

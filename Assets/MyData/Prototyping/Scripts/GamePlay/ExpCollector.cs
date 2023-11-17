@@ -16,6 +16,15 @@ public class ExpCollector : MonoBehaviour
 
     public static event Action OnLevelUp;
 
+    private void Awake()
+    {
+        if(GameManager.IsGodMode)
+        {
+            expBar.transform.parent.gameObject.SetActive(false);
+            enabled = false;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out PickupItem item) && item.pickupType == PickupItem.Type.Exp)

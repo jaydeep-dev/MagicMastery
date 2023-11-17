@@ -12,10 +12,12 @@ public class HealthManager : MonoBehaviour, IDamagable
 
     [field: SerializeField] public float Health { get; private set; }
     public float MaxHealth => maxHealth;
+    private float defenceInternal;
 
     private void Start()
     {
         Health = maxHealth;
+        defenceInternal = defence;
     }
 
     public void SetDefenceMultiplier(float multiplier) => defence *= multiplier;
@@ -33,12 +35,12 @@ public class HealthManager : MonoBehaviour, IDamagable
             // dmg after defence is broken
             float dmg = Mathf.Abs(defence);
             Health -= dmg;
+            defence = defenceInternal;
             OnDamageTaken?.Invoke();
         }
 
         if (Health <= 0)
             Die();
-
     }
 
     private void Die()

@@ -11,11 +11,18 @@ public class PlayerHealthUI : MonoBehaviour
 
     private void Awake()
     {
+        if(GameManager.IsGodMode)
+        {
+            healthBarImage.GetComponentInParent<Canvas>().gameObject.SetActive(false);
+        }
         healthManager = GetComponent<HealthManager>();
     }
 
     private void OnEnable()
     {
+        if (GameManager.IsGodMode)
+            return;
+
         healthManager.OnDamageTaken += OnDamageTaken;
         healthManager.OnDie += OnDie;
     }
@@ -33,6 +40,9 @@ public class PlayerHealthUI : MonoBehaviour
 
     private void OnDisable()
     {
+        if (GameManager.IsGodMode)
+            return;
+
         healthManager.OnDamageTaken -= OnDamageTaken;
         healthManager.OnDie -= OnDie;
     }

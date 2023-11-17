@@ -26,6 +26,22 @@ public class SkillUIController : MonoBehaviour
         isFirstSkillSelection = true;
     }
 
+    private void Start()
+    {
+        if (GameManager.IsGodMode)
+        {
+            foreach (var skill in allSkillsUIList)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    ManageActiveSkills(skill.skillName);
+                }
+            }
+
+            enabled = false;
+        }
+    }
+
     private void OnEnable()
     {
         ExpCollector.OnLevelUp += OnLevelUp;
