@@ -1227,6 +1227,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f0f622b3cb2526642be8214359715ac0, type: 2}
   - {fileID: 11400000, guid: 23ea200a2d4282a4db5c02efdc6d0ee1, type: 2}
   - {fileID: 11400000, guid: e054f29214adf48438b7700345eceeb6, type: 2}
+  backupWave: {fileID: 11400000, guid: 76fb5e855df543941955636d69488762, type: 2}
   bossPrefab: {fileID: 5605928799153516319, guid: 4d2506892c18fad48838661dc783c734, type: 3}
 --- !u!1001 &194009194
 PrefabInstance:

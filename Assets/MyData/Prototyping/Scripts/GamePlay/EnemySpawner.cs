@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveInfoText;
     [SerializeField] private TextMeshProUGUI enemyCountText;
     [SerializeField] private List<EnemyWaveSO> enemyWavesList;
+    [SerializeField] private EnemyWaveSO backupWave;
 
     [Header("Boss Settings")]
     [SerializeField] private GameObject bossPrefab;
@@ -92,7 +93,7 @@ public class EnemySpawner : MonoBehaviour
         AnimateWaveText();
         var remainingTime = spawnInterval - currentTime;
         currentTime = 0f;
-        spawnInterval = enemyWavesList[currentWaveIndex].nextWaveTime;
+        spawnInterval = GetEnemyWave().nextWaveTime;
         SpawnEnemies();
 
         UpdateRemainingCount();
@@ -122,7 +123,8 @@ public class EnemySpawner : MonoBehaviour
         var waveObj = new GameObject($"Wave {currentWaveIndex + 1}");
         waveObj.transform.SetParent(transform);
         int spawnCount = 0;
-        foreach (var enemyInfo in enemyWavesList[currentWaveIndex].enemiesList)
+        var enemyWave = GetEnemyWave();
+        foreach (var enemyInfo in enemyWave.enemiesList)
         {
             for (int i = 0; i < enemyInfo.spawnCount; i++, spawnCount += 4)
             {
@@ -148,5 +150,15 @@ public class EnemySpawner : MonoBehaviour
         }
 
         remainimgEnemyCount += spawnCount;
+    }
+
+    EnemyWaveSO GetEnemyWave()
+    {
+        if(currentWaveIndex < enemyWavesList.Count)
+        {
+            return enemyWavesList[currentWaveIndex];
+        }
+
+        return backupWave;
     }
 }

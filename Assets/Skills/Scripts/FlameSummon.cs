@@ -29,7 +29,7 @@ public class FlameSummon : SkillActivator
             var enemy = collider.gameObject.GetComponent<IEnemy>();
             if(enemy.IsBoss)
             {
-                enemy.Damage(skillsAugmentor.CalculateModifiedDamage(damage, true));
+                StartCoroutine(DamageEnemy(enemy, damage));
                 CreateFlameVFX(collider.transform);
                 return;
             }
@@ -37,7 +37,7 @@ public class FlameSummon : SkillActivator
 
         var target = colliders[Random.Range(0, colliders.Length)];
         var targetEnemyComponent = target.GetComponent<IEnemy>();
-        targetEnemyComponent.Damage(skillsAugmentor.CalculateModifiedDamage(damage, targetEnemyComponent.IsBoss));
+        StartCoroutine(DamageEnemy(targetEnemyComponent, damage));
         CreateFlameVFX(target.transform);        
         return;
     }
@@ -49,5 +49,11 @@ public class FlameSummon : SkillActivator
         vfx.SetActive(true);
         Destroy(vfx, vfxDuration);
         flameSound.Play();
+    }
+
+    IEnumerator DamageEnemy(IEnemy enemy, float damage)
+    {
+        yield return new WaitForSeconds(vfxDuration / 2);
+        enemy.Damage(skillsAugmentor.CalculateModifiedDamage(damage, enemy.IsBoss));
     }
 }

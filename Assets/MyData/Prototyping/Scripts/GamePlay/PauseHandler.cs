@@ -74,12 +74,14 @@ public class PauseHandler : MonoBehaviour
 
     public void OnRestartClicked()
     {
+        Time.timeScale = 1;
         var buildIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
         UnityEngine.SceneManagement.SceneManager.LoadScene(buildIndex);
     }
 
     public void OnMainMenuClicked()
     {
+        Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }
