@@ -11,6 +11,7 @@ public class PlayerHealthUI : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(GameManager.IsGodMode + "--------------------------");
         if(GameManager.IsGodMode)
         {
             healthBarImage.GetComponentInParent<Canvas>().gameObject.SetActive(false);

@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class ExpCollector : MonoBehaviour
 {
-    [SerializeField] private int maxExp;
+    [SerializeField] private float maxExp;
     [SerializeField] private Image expBar;
 
     private float expMultiplier = 1f;
-    private int currentExp = 0;
-    private int targetExp = 0;
+    private float currentExp = 0;
+    private float targetExp = 0;
     private LTDescr expBarTween;
 
     public static event Action OnLevelUp;
@@ -40,8 +40,8 @@ public class ExpCollector : MonoBehaviour
     {
         if (expBarTween != null)
             LeanTween.cancel(expBarTween.id);
-        Debug.Log("Expcolletor Disabled");
         OnLevelUp = null;
+        Debug.Log("Expcolletor Disabled");
     }
 
     public void SetExpMultiplier(float multiplier) => expMultiplier = multiplier;
@@ -70,10 +70,12 @@ public class ExpCollector : MonoBehaviour
     private void LevelUp()
     {
         currentExp = 0;
-        targetExp = ((int)expBarTween.to.x) - maxExp;
+        targetExp = expBarTween.to.x - maxExp;
         Debug.Log(currentExp + " -> " + targetExp);
+        maxExp *= 1.75f; // FORMULA OF EASE IN QUAD
+
         TweenExpBar(targetExp);
-        maxExp *= 2; // Makling twice as long
+
         OnLevelUp?.Invoke();
     }
 }

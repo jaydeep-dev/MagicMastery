@@ -7,15 +7,21 @@ public class MainMenuController : MonoBehaviour
 {
     [SerializeField] private GameObject quitMenu;
 
+    private void Start()
+    {
+        Time.timeScale = 1.0f;
+    }
+
     public void LoadGameScene()
     {
+        GameManager.IsGodMode = false;
         LeanTween.delayedCall(.7f, () => SceneManager.LoadScene("PrototypeGame"));
     }
 
     public void ActivateGodMode()
     {
         GameManager.IsGodMode = true;
-        LoadGameScene();
+        LeanTween.delayedCall(.7f, () => SceneManager.LoadScene("PrototypeGame"));
     }
 
     private void Update()

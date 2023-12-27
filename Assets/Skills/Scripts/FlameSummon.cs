@@ -54,6 +54,7 @@ public class FlameSummon : SkillActivator
     IEnumerator DamageEnemy(IEnemy enemy, float damage)
     {
         yield return new WaitForSeconds(vfxDuration / 2);
-        enemy.Damage(skillsAugmentor.CalculateModifiedDamage(damage, enemy.IsBoss));
+        if (enemy != null)
+            enemy.Damage(skillsAugmentor.CalculateModifiedDamage(damage, enemy.IsBoss));
     }
 }

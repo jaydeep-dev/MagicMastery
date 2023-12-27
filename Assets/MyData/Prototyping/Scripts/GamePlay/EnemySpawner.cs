@@ -10,7 +10,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveInfoText;
     [SerializeField] private TextMeshProUGUI enemyCountText;
     [SerializeField] private List<EnemyWaveSO> enemyWavesList;
-    [SerializeField] private EnemyWaveSO backupWave;
 
     [Header("Boss Settings")]
     [SerializeField] private GameObject bossPrefab;
@@ -98,14 +97,15 @@ public class EnemySpawner : MonoBehaviour
 
         UpdateRemainingCount();
 
+        if (currentWaveIndex != 0)
+            OnWaveSpawned?.Invoke(remainingTime);
         currentWaveIndex++;
-        OnWaveSpawned?.Invoke(remainingTime);
     }
 
     private void AnimateWaveText()
     {
         waveInfoText.text = $"Wave #{currentWaveIndex + 1}";
-        waveInfoText.transform.LeanScale(Vector3.one, 1f).setLoopPingPong(1).setEaseOutBounce().setDelay(1f);
+        waveInfoText.transform.LeanScale(Vector3.one, 1f).setLoopPingPong(1).setEaseOutBounce();
     }
 
     private void SpawnEnemies()
@@ -159,6 +159,6 @@ public class EnemySpawner : MonoBehaviour
             return enemyWavesList[currentWaveIndex];
         }
 
-        return backupWave;
+        return enemyWavesList[^1];
     }
 }

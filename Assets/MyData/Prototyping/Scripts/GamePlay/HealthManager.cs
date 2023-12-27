@@ -22,15 +22,21 @@ public class HealthManager : MonoBehaviour, IDamagable
 
     public void SetDefenceMultiplier(float multiplier) => defence *= multiplier;
 
-    public void SetCurrentHealth(float multiplier) => Health = maxHealth * multiplier;
-
     public void SetMaxHealth(float healthMultiplier) => maxHealth *= healthMultiplier;
+
+    public void SetCurrentHealth(float multiplier)
+    {
+        Debug.Log("Health Before Modification: " + Health);
+        Health += maxHealth * multiplier; // Add health to player
+        Health = Mathf.Clamp(Health, 0, MaxHealth); // restrict health to prevent overshoot.
+        Debug.Log("Health After Modification: " + Health);
+    }
 
     public void TakeDamage(float damage)
     {
         //Debug.Log(transform.name + " Is Taking Damage");
         defence -= damage;
-        if (defence < 0)
+        if (defence <= 0)
         {
             // dmg after defence is broken
             float dmg = Mathf.Abs(defence);
