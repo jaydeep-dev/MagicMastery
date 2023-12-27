@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SkillsHandler : MonoBehaviour
@@ -18,9 +17,9 @@ public class SkillsHandler : MonoBehaviour
     private void Awake()
     {
         SkillActivator[] skillActivators = GetComponentsInChildren<SkillActivator>();
-        foreach(var skillActivator in skillActivators)
+        foreach (var skillActivator in skillActivators)
         {
-            if(skillActivator.SkillNameTag == SkillNameTag.GreatFireBall ||
+            if (skillActivator.SkillNameTag == SkillNameTag.GreatFireBall ||
                 skillActivator.SkillNameTag == SkillNameTag.BurningPoison ||
                 skillActivator.SkillNameTag == SkillNameTag.IcicleBlast ||
                 skillActivator.SkillNameTag == SkillNameTag.LighteningArrow ||
@@ -37,7 +36,7 @@ public class SkillsHandler : MonoBehaviour
 
     public void ActivateSkill(SkillNameTag skillNameTag)
     {
-        if(!AllSkills.TryGetValue(skillNameTag, out SkillActivator skillActivator))
+        if (!AllSkills.TryGetValue(skillNameTag, out SkillActivator skillActivator))
         {
             return;
         }
@@ -73,7 +72,7 @@ public class SkillsHandler : MonoBehaviour
     public List<SkillLevelInfo> GetCurrentSkills()
     {
         List<SkillLevelInfo> currentSkillsInfo = new();
-        foreach(var skillNameTag in currentSkills)
+        foreach (var skillNameTag in currentSkills)
         {
             var skill = AllSkills[skillNameTag];
             currentSkillsInfo.Add(new SkillLevelInfo(skillNameTag, skill.CurrentLevel, skill.MaxLevel, false));
@@ -86,7 +85,7 @@ public class SkillsHandler : MonoBehaviour
     {
         var currentSkillsInfos = GetCurrentSkills();
         //GreatFireBall
-        if(CheckBreakthroughRecipe(currentSkillsInfos, SkillNameTag.FireMissile, SkillNameTag.WindGust, SkillNameTag.Defense, SkillNameTag.Heal))
+        if (CheckBreakthroughRecipe(currentSkillsInfos, SkillNameTag.FireMissile, SkillNameTag.WindGust, SkillNameTag.Defense, SkillNameTag.Heal))
         {
             PerformBreakthrough(SkillNameTag.FireMissile, SkillNameTag.WindGust, SkillNameTag.GreatFireBall);
             return;
@@ -121,12 +120,16 @@ public class SkillsHandler : MonoBehaviour
     {
         Destroy(AllSkills[activeSkill1].gameObject);
         Destroy(AllSkills[activeSkill2].gameObject);
+
         AllSkills.Remove(activeSkill1);
         AllSkills.Remove(activeSkill2);
+
         currentSkills.Remove(activeSkill1);
         currentSkills.Remove(activeSkill2);
+
         AllSkills.Add(breakthorughSkill, breakthroughSkills[breakthorughSkill]);
         ActivateSkill(breakthorughSkill);
+
         skillBreakthrough?.Invoke(breakthorughSkill);
     }
 
@@ -136,32 +139,23 @@ public class SkillsHandler : MonoBehaviour
         bool activeSkill1Max = false;
         bool activeSkill2Max = false;
         bool hasPassiveSkill = false;
-        foreach(var skillInfo in currentSkills)
+        foreach (var skillInfo in currentSkills)
         {
-            if(skillInfo.SkillNameTag == activeSkill1 && skillInfo.CurrentLevel == skillInfo.MaxLevel)
+            if (skillInfo.SkillNameTag == activeSkill1 && skillInfo.CurrentLevel == skillInfo.MaxLevel)
             {
                 activeSkill1Max = true;
             }
-            if(skillInfo.SkillNameTag == activeSkill2 && skillInfo.CurrentLevel == skillInfo.MaxLevel)
+            if (skillInfo.SkillNameTag == activeSkill2 && skillInfo.CurrentLevel == skillInfo.MaxLevel)
             {
                 activeSkill2Max = true;
             }
-            if(skillInfo.SkillNameTag == passiveSkillOption1)
+            if ((skillInfo.SkillNameTag == passiveSkillOption1) || (passiveSkillOption2 != null && skillInfo.SkillNameTag == passiveSkillOption2))
             {
                 hasPassiveSkill = true;
             }
-            if(passiveSkillOption2 != null && skillInfo.SkillNameTag == passiveSkillOption2)
-            {
-                hasPassiveSkill = true;
-            }            
         }
 
-        if (activeSkill1Max && activeSkill2Max && hasPassiveSkill)
-        {
-            return true;
-        }
-
-        return false;
+        return activeSkill1Max && activeSkill2Max && hasPassiveSkill;
     }
 }
 

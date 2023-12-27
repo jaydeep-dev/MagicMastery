@@ -212,4 +212,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 25
+  maxDefence: 1
   <Health>k__BackingField: 0

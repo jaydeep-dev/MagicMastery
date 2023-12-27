@@ -5,22 +5,22 @@ using UnityEngine;
 public class HealthManager : MonoBehaviour, IDamagable
 {
     [SerializeField] private float maxHealth;
-    [SerializeField] private float defence;
+    [SerializeField] private float maxDefence;
+    private float defence;
 
     public event System.Action OnDie;
     public event System.Action OnDamageTaken;
 
     [field: SerializeField] public float Health { get; private set; }
     public float MaxHealth => maxHealth;
-    private float defenceInternal;
 
     private void Start()
     {
         Health = maxHealth;
-        defenceInternal = defence;
+        defence = maxDefence;
     }
 
-    public void SetDefenceMultiplier(float multiplier) => defence *= multiplier;
+    public void SetDefenceMultiplier(float multiplier) => maxDefence *= multiplier;
 
     public void SetMaxHealth(float healthMultiplier) => maxHealth *= healthMultiplier;
 
@@ -41,7 +41,7 @@ public class HealthManager : MonoBehaviour, IDamagable
             // dmg after defence is broken
             float dmg = Mathf.Abs(defence);
             Health -= dmg;
-            defence = defenceInternal;
+            defence = maxDefence;
             OnDamageTaken?.Invoke();
         }
 

@@ -11429,6 +11429,10 @@ PrefabInstance:
       propertyPath: maxExp
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5821228244994579689, guid: a7aa2ce0b6ee46e4699e7302a243b49c, type: 3}
+      propertyPath: maxDefence
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7185589723219024290, guid: a7aa2ce0b6ee46e4699e7302a243b49c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
